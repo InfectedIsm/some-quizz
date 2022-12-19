@@ -211,7 +211,7 @@ To win this game you must be a validator/miner, on each block you will compute `
 > Blocks have a target at 15 million gas, and it can grow up to 30 million to adapt to the network demands. But the bigger the new blocks stays, the higher the base gas fee become for the following block. This mechanism tend to reduce the incoming transactions (as tx become more expensive), thus reducing the incoming txs. The same way, if the block size is <15m, then the base fee get cheaper. More details [here](https://ethereum.org/en/developers/docs/gas/#block-size)
 > 
 
-Q**uestion 17/40**
+**Question 17/40**
 
 ```solidity
 contract Difference {
@@ -219,15 +219,15 @@ contract Difference {
 	uint256 val2;
 
 	function a(uint256 x) external {
-			require(x < 10);
-			val = x;
-			val2 = x - 1;
+		require(x < 10);
+		val = x;
+		val2 = x - 1;
 	}
 
 	function b(uint256 x) external {
-			val = x;
-			require(x < 10);
-			val2 = x - 1;
+		val = x;
+		require(x < 10);
+		val2 = x - 1;
 	}
 ```
 
