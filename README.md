@@ -1,5 +1,3 @@
-# Rareskills quizz
-
 **Question 2/40**
 **What does require(msg.sender == tx.origin) do?**
 
