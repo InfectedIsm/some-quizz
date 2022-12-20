@@ -1,4 +1,6 @@
-# Rareskills quizz
+Hi folks !
+This is a quizz I found, and as I wasn't able to answer it perfectly and found it intersting, I though we could learn from it together !
+Thanks to my comment to each question, you should be able to guess the right answer, right ?
 
 **Question 2/40**
 **What does require(msg.sender == tx.origin) do?**
@@ -443,13 +445,25 @@ More information in the [Solidity documentation](https://docs.soliditylang.org/e
 4. The virtual keyword has no effect after solidity 0.7.0
 5. It allows the function to be modified by a child contract
 
+> Decorating a function with the `virtual` keyword make it overridable by the contract that will inherit it. If the contract wants to override it, it have to add the `override` keyword.
+It can be used in any contract, not only in abstract contract.
+Also as said above, it does not have to be override, but to be override it must be `virtual`.
+>
+
 **Question 30/40**
 **Which of the following is true if 51% of the network is malicious?**
 
-- [ ]  They can conduct a denial of service
-- [ ]  They can fork the protocol (but if and only if they maintain more than 51% control of the hash power or staked ether)
-- [ ]  The nodes can censor you
-- [ ]  The nodes can steal your ether
+1. They can conduct a denial of service
+2. They can fork the protocol (but if and only if they maintain more than 51% control of the hash power or staked ether)
+3. The nodes can censor you
+4. The nodes can steal your ether
+
+> There is no need to have >50% of staked ether to conduct a DoS, as the algorithm chosing the next validator is a known function, an attacker can know in advance which one it will be, and spam it so that it cannot add information on the blockchain. 
+With 51% of the stake, malicious group of validator could theoretically split the chain into 2 equal size forks, and vote for the one and the other one alternatively, preventing either of the forks to finalize
+Finally, the attackers by being able to favor the chain they want at any time could allow them to censor certain transaction
+> - [attacker with ~50% of total stake](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/attack-and-defense/#attackers-with-50-stake)
+> - [Proof of stake and security (eth.org)](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/#pos-and-security)
+>
 
 **Question 31/40**
 
