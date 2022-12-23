@@ -467,17 +467,29 @@ Finally, the attackers by being able to favor the chain they want at any time co
 
 **Question 31/40**
 
-[https://images.testportal.net/eyJidWNrZXQiOiJ0ZXN0cG9ydGFsLW5ldC1hc3NldHMiLCJrZXkiOiJNdmdsT05vVEcyVWgxSWJBZWJ1MHBRL2E3NDZmMDhhNmRjNDllNWVmMjAxMTA3YTdkNGRjN2RlODUxZDIwNjY1Mjk0MDEwYzRhYjU5OTQzMzhlNjcwNzciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjY5Miwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfX19](https://images.testportal.net/eyJidWNrZXQiOiJ0ZXN0cG9ydGFsLW5ldC1hc3NldHMiLCJrZXkiOiJNdmdsT05vVEcyVWgxSWJBZWJ1MHBRL2E3NDZmMDhhNmRjNDllNWVmMjAxMTA3YTdkNGRjN2RlODUxZDIwNjY1Mjk0MDEwYzRhYjU5OTQzMzhlNjcwNzciLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjY5Miwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfX19)
+```solidity
+function foo(uint256[] memory, uint256[] memory y) external view {
+	// ...
+}
+```
 
 **What is the minimum valid calldatasize for this function?**
 
-- [ ]  256
-- [ ]  64
-- [ ]  128
-- [ ]  68
-- [ ]  224
-- [ ]  260
-- [ ]  132
+1. 256
+2. 64
+3. 128
+4. 68
+5. 224
+6. 260
+7. 132
+
+> The calldata is composed of : 
+>1) the function signature (keccak256 hash of the function prototype) which is 4 bytes long
+>2) the arguments which are stacked in 32-bytes blocks
+> 
+>This being said, if the x and y inputs are 1-element arrays, this will gives 68 bytes for calldata
+>Also, in this example the arguments have the memory keyword, the argument is passed by value (while when its using the storage keyword, it is passed by reference)
+
 
 **Question 32/40**
 
