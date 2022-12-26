@@ -495,31 +495,56 @@ function foo(uint256[] memory, uint256[] memory y) external view {
 
 **What is true about private, internal, external, and public functions?**
 
-- [ ]  Some of these of these are related to inheritance
-- [ ]  external functions can only be called by smart contracts
-- [ ]  public functions can be called by other smart contracts
-- [ ]  All of these except external could be used to describe variables in addition to functions
-- [ ]  There is no such thing as an internal function, it should be called a protected function
+1. Some of these of these are related to inheritance
+2. external functions can only be called by smart contracts
+3. public functions can be called by other smart contracts
+4. All of these except external could be used to describe variables in addition to functions
+5. There is no such thing as an internal function, it should be called a protected function
+
+> Functions can be declared as :
+> 
+> 
+> public - any contract and account can call
+> private - only inside the contract that defines the function
+> internal- only inside contract that inherits an internal function
+> external - only other contracts and accounts can call
+> State variables can be declared as public, private, or internal but not external.
+> 
+> (credits : [Solidity-by-Example: Visibility](https://solidity-by-example.org/visibility/))
+> 
 
 **Question 33/40**
 
 **How is an ethereum address created?**
 
-- [ ]  An ethereum address is the hash of the public key
-- [ ]  An ethereum address is the public key of an ECDSA signature scheme
-- [ ]  An ethereum address is the last 20 bytes of the hash of the public key
-- [ ]  An ethereum address is a random string. It's relationship to the secret phrase is kept in the user account
-- [ ]  An ethereum address is the hash of the block number the wallet was created on, and the public key
+1. An ethereum address is the hash of the public key
+2. An ethereum address is the public key of an ECDSA signature scheme
+3. An ethereum address is the last 20 bytes of the hash of the public key
+4. An ethereum address is a random string. It's relationship to the secret phrase is kept in the user account
+5. An ethereum address is the hash of the block number the wallet was created on, and the public key
+
+> To see all the steps an Ethereum address is generated from check this excellent document : [Ethereumbook/-keys-addresses](https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#ethereum-addresses)
+>
 
 **Question 34/40**
 
 **The DAO hack in 2016, that resulted in the split of Ethereum Classic, was hacked with what kind of exploit?**
 
-- [ ]  Compromised private keys
-- [ ]  Arithmetic overflow
-- [ ]  Arithmetic underflow
-- [ ]  Insufficient access controls
-- [ ]  Re-entrancy
+1. Compromised private keys
+2. Arithmetic overflow
+3. Arithmetic underflow
+4. Insufficient access controls
+5. Re-entrancy
+
+> Reentrancy attacks are a specific type of vulnerability where a contract make an action that will trigger an external contract function, which could if malicious call again the caller function, which will call the external contract, which … and so on.  This can happen for example when transfering ETH to a smart contract, because this will call either its `receive()` or `fallback()` function.
+That’s what happened to The DAO where funds where exfiltrated using this.
+To protect a sensible function from reentrancy, it needs to follow checks-effects interactions pattern, which consist in pseudocode for a transfer :
+function {
+   require( condition )
+   balance[address] -= amount
+   address.transfer(amount)
+}
+>
 
 **Question 35/40**
 
