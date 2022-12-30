@@ -3,7 +3,7 @@ This is a quizz I found, and as I wasn't able to answer it perfectly and found i
 Thanks to my comment to each question, you should be able to guess the right answer, right ?
 If not, just search by yourself, you will probably learn a lot ;)
 
-**Question 2/40**
+<u>**Question 2/40**</u>
 **What does require(msg.sender == tx.origin) do?**
 
 1. It will only accept transactions from smart contracts
@@ -17,7 +17,7 @@ tx.origin = adrdess of the first executer of the transaction, thus the signer of
 If a user A sends a tx calling a smart contract B, msg.sender == tx.origin == user A address. If contract B makes an external call to contract C then msg.sender == contract B while tx.origin is still user A.
 > 
 
-**Question 6/40**
+<u>**Question 6/40**</u>
 
 **Which of the following is true about generating random numbers on Ethereum? (multiple possible)**
 
@@ -38,7 +38,7 @@ The length of the hash make the attack surface pretty small, so the attack will 
 =======
 >>>>>>> 6eee386f5aace7cda57b5751714bb724b41ecc97
 
-**Question 7/40**
+<u>**Question 7/40**</u>
 
 **What is true about block.timestamp?**
 
@@ -48,7 +48,7 @@ The length of the hash make the attack surface pretty small, so the attack will 
 4. The number of milliseconds since 1 January 1970 in the user's timezone
 5. The timestamp is determined by the miner or validator
 
-**Question 8/40**
+<u>**Question 8/40**</u>
 
 **EIP 1967 Proxy Storage Slots specifies which storage slots?**
 
@@ -65,7 +65,7 @@ proxy contract —> beacon contract
 Changes to these addresses **should** be notified by a standardized event
 > 
 
-**Question 9/40**
+<u>**Question 9/40**</u>
 
 ```solidity
 valueToSend = totalValue / contributors.length * 1
@@ -83,7 +83,7 @@ Also, as in any programming language, divising by 0 cause an error
 
 
 
-**Question 10/40**
+<u>**Question 10/40**</u>
 
 ```solidity
 contract Sample {
@@ -105,7 +105,7 @@ contract Sample {
 Note that this is what makes private variables not so much private : if the contract code is public, one can get the value of the private variable using function loke web3.eth.getStorageAt
 > 
 
-**Question 11/40**
+<u>**Question 11/40**</u>
 
 **What is the difference between a view and pure function in Solidity?**
 
@@ -121,7 +121,7 @@ A contract will not compile if a pure function potentially access or change the 
 For the list of what can change the state, please refer at [this section](https://docs.soliditylang.org/en/v0.8.17/contracts.html#state-mutability) of the documentation
 > 
 
-**Question 12/40**
+<u>**Question 12/40**</u>
 
 **What is Ethereum's primary hash function?**
 
@@ -134,7 +134,7 @@ For the list of what can change the state, please refer at [this section](https:
 > Most of the time you will see keccak256 used with abi.encode or abi.encodePacked to generate a hash of a set of data
 > 
 
-**Question 13/40**
+<u>**Question 13/40**</u>
 
 ```solidity
 function vote(uint256 choice) external payable {
@@ -165,7 +165,7 @@ function vote(uint256 choice) external payable {
 > The free memory pointer is a starts at 0x40 and stops at 0x5f
 > 
 
-**Question 14/40**
+<u>**Question 14/40**</u>
 
 **What is true about ERC721?**
 
@@ -179,7 +179,7 @@ Moreover, these 2 methods are not defined in the ERC721 token.
 So it is up to the developer to protect these function from re-entrancy, usually developper will use as a base the [OpenZeppelin ERC721 library](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol)
 > 
 
-**Question 15/40**
+<u>**Question 15/40**</u>
 
 ```solidity
 function rollDice() external payable {
@@ -201,7 +201,7 @@ function rollDice() external payable {
 To win this game you must be a validator/miner, on each block you will compute `uint(256(blockhash(block.number - 1)) % 6 == 3)` and only integrate the transaction in the block if you know the result is true. Although the requirement is not that simple to fulfill, if the price is worth, this will probably be exploited by someone else, so be careful when building something like this.
 > 
 
-**Question 16/40**
+<u>**Question 16/40**</u>
 
 **What limits the block size in Ethereum as of 2022?**
 
@@ -218,7 +218,7 @@ To win this game you must be a validator/miner, on each block you will compute `
 > Blocks have a target at 15 million gas, and it can grow up to 30 million to adapt to the network demands. But the bigger the new blocks stays, the higher the base gas fee become for the following block. This mechanism tend to reduce the incoming transactions (as tx become more expensive). The same way, if the block size is <15m, then the base fee get cheaper. More details [here](https://ethereum.org/en/developers/docs/gas/#block-size)
 > 
 
-**Question 17/40**
+<u>**Question 17/40**</u>
 
 ```solidity
 contract Difference {
@@ -253,7 +253,7 @@ Finally, of x=0, two behavior can happen :
 >- solidity <0.8.0 = underflow of val2, making its value equal to 2^256-1
 > 
 
-**Question 18/40**
+<u>**Question 18/40**</u>
 
 ```solidity
 mapping(address => uint256) balance;
@@ -282,7 +282,7 @@ tx.origin is known to be vulnerable for authorization, but in this case tx.origi
 Finally, the deposit function is wrong, it equalize the balance to msg.value, while it should add it.
 > 
 
-**Question 19/40**
+<u>**Question 19/40**</u>
 
 **How can a smart contract change it's bytecode?**
 
@@ -296,7 +296,7 @@ Finally, the deposit function is wrong, it equalize the balance to msg.value, wh
 `create2` do not permit to re-deploy a smart contract to a same address after destroying it, because the value is function of the EoA address and its nonce (number of transactions)
 > Same for `create` as it is based on msg.sender and its nonce
 
-**Question 20/40**
+<u>**Question 20/40**</u>
 
 **What is the difference between transfer and transferFrom in ERC20?**
 
@@ -310,7 +310,7 @@ Finally, the deposit function is wrong, it equalize the balance to msg.value, wh
 > There is no re-entrancy risk with transfer and transferFrom, as re-entrancy is happening when sending ETH to a smart contract, which cause to automatically call the `receive()` or `fallback()` fonctions of the smart contract. [More about re-entrancy here](https://solidity-by-example.org/hacks/re-entrancy)
 > 
 
-**Question 21/40**
+<u>**Question 21/40**</u>
 
 ```solidity
 pragma solidity 0.8.7;
@@ -340,7 +340,7 @@ contract C is B{ }
 When deploying C, only one contract is deployed, and this contract will automatically have a `boom()` function. Calling it will then destroy C.
 > 
 
-**Question 22/40**
+<u>**Question 22/40**</u>
 **What is the difference in the calldata between function myFunction(uint64 x) and myFunction(uint256 x)?**
 
 1. it will depend on the number x holds, but myFunction(uint256 x) can create larger calldata
@@ -355,7 +355,7 @@ In this example, there’s only 1 argument in both function, so there will be 4+
 You can easily check that using Remix : when deploying a contract, if you develop the function call you can copy to clipboard the calldata it would generate
 > 
 
-**Question 23/40**
+<u>**Question 23/40**</u>
 
 **What solidity version introduced arithmetic underflow and overflow protection?**
 
@@ -368,7 +368,7 @@ You can easily check that using Remix : when deploying a contract, if you develo
 > SafeMath is not needed anymore with version ≥0.8.0 of Solidity. Although, I found [that answer on StackExchange](https://ethereum.stackexchange.com/a/115534/105102) pretty interesting, showing it can still be useful for meaningful revert messages.
 > 
 
-**Question 24/40**
+<u>**Question 24/40**</u>
 **What does the staticcall opcode do?**
 
 1. It is deprecated an not recommended for use, it is an older version of call
@@ -381,7 +381,7 @@ You can easily check that using Remix : when deploying a contract, if you develo
 Staticcall disallow any modification to the state during the call (and its subcalls), if it happens that a state will be modified, the function return an exception instead of performing the modification.
 > 
 
-**Question 25/40**
+<u>**Question 25/40**</u>
 
 **What does selfdestruct do?**
 
@@ -396,7 +396,7 @@ A vulnerability based on selfdestruct ether transfer behavior can be exploited, 
 Also, be careful when using delegatecall, as you could call a malicious contract containing a selfdestruct in its fallback function, causing you to execute it in the context of your contract and destroy your own contract !..
 > 
 
-**Question 26/40**
+<u>**Question 26/40**</u>
 
 **Why does the gas cost of a public or external variable change when the name of the function changes?**
 
@@ -409,7 +409,7 @@ Also, be careful when using delegatecall, as you could call a malicious contract
 And, the execution of ‘0’ bytes by the EVM cost less gas than the execution of ‘non-0’ bytes. But this should be taken into account as the gas saving is really low, and finding a function hash that has a lot of trailing zeros will always result in a bad function name.
 > 
 
-**Question 27/40**
+<u>**Question 27/40**</u>
 
 **Which of the following are valid uint sizes?**
 
@@ -422,7 +422,7 @@ And, the execution of ‘0’ bytes by the EVM cost less gas than the execution 
 > As far as the uint size can be divided 8, it is valid
 > 
 
-**Question 28/40**
+<u>**Question 28/40**</u>
 **Which of the following variable types can be stored in memory?**
 
 1. struct
@@ -438,7 +438,7 @@ Struct and array are designed as “complex data types” are they can be of an 
 More information in the [Solidity documentation](https://docs.soliditylang.org/en/v0.4.21/types.html#reference-types)
 > 
 
-**Question 29/40**
+<u>**Question 29/40**</u>
 
 **What is true about virtual functions?**
 
@@ -453,7 +453,7 @@ It can be used in any contract, not only in abstract contract.
 Also as said above, it does not have to be override, but to be override it must be `virtual`.
 >
 
-**Question 30/40**
+<u>**Question 30/40**</u>
 **Which of the following is true if 51% of the network is malicious?**
 
 1. They can conduct a denial of service
@@ -468,7 +468,7 @@ Finally, the attackers by being able to favor the chain they want at any time co
 > - [Proof of stake and security (eth.org)](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/#pos-and-security)
 >
 
-**Question 31/40**
+<u>**Question 31/40**</u>
 
 ```solidity
 function foo(uint256[] memory, uint256[] memory y) external view {
@@ -494,7 +494,7 @@ function foo(uint256[] memory, uint256[] memory y) external view {
 >Also, in this example the arguments have the memory keyword, the argument is passed by value (while when its using the storage keyword, it is passed by reference)
 
 
-**Question 32/40**
+<u>**Question 32/40**</u>
 
 **What is true about private, internal, external, and public functions?**
 
@@ -516,7 +516,7 @@ function foo(uint256[] memory, uint256[] memory y) external view {
 > (credits : [Solidity-by-Example: Visibility](https://solidity-by-example.org/visibility/))
 > 
 
-**Question 33/40**
+<u>**Question 33/40**</u>
 
 **How is an ethereum address created?**
 
@@ -529,7 +529,7 @@ function foo(uint256[] memory, uint256[] memory y) external view {
 > To see all the steps an Ethereum address is generated from check this excellent document : [Ethereumbook/-keys-addresses](https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#ethereum-addresses)
 >
 
-**Question 34/40**
+<u>**Question 34/40**</u>
 
 **The DAO hack in 2016, that resulted in the split of Ethereum Classic, was hacked with what kind of exploit?**
 
@@ -549,7 +549,7 @@ function {
 }
 >
 
-**Question 35/40**
+<u>**Question 35/40**</u>
 
 **What is the difference between create and create2?**
 
@@ -560,9 +560,15 @@ create2 can create multiple smart contracts.
 - [ ]  the user can predict the address in create2 but not create
 - [ ]  the user has more control over the address in create2 compared to create
 
-**Question 36/40**
+<u>**Question 36/40**</u>
 
-[https://images.testportal.net/eyJidWNrZXQiOiJ0ZXN0cG9ydGFsLW5ldC1hc3NldHMiLCJrZXkiOiJNdmdsT05vVEcyVWgxSWJBZWJ1MHBRLzJhNzNlYzQzNGQ0MzFjOTFiOTliZTgxZjdjNDEyNDVkMDM2MzAzNWEwZDYxNGI5MGYxMmRmYmUzYmY0OTVlYzkiLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjY5Miwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfX19](https://images.testportal.net/eyJidWNrZXQiOiJ0ZXN0cG9ydGFsLW5ldC1hc3NldHMiLCJrZXkiOiJNdmdsT05vVEcyVWgxSWJBZWJ1MHBRLzJhNzNlYzQzNGQ0MzFjOTFiOTliZTgxZjdjNDEyNDVkMDM2MzAzNWEwZDYxNGI5MGYxMmRmYmUzYmY0OTVlYzkiLCJlZGl0cyI6eyJyZXNpemUiOnsid2lkdGgiOjY5Miwid2l0aG91dEVubGFyZ2VtZW50Ijp0cnVlfX19)
+```(solidity)
+uint8[] x = [1,2,3,4];
+
+function loadY() external {
+    uint8[] memory y = x;
+}
+```
 
 **What is the layout of y in memory right after line 55 executes?**
 
@@ -579,16 +585,31 @@ create2 can create multiple smart contracts.
 0000000000000000000000000000000000000000000000000000000000000003
 0000000000000000000000000000000000000000000000000000000000000004
 
-**Question 37/40**
+> elements in memory arrays always occupy multiples of 32 bytes, same for elements of structs
+[See solidity](https://docs.soliditylang.org/en/v0.8.17/internals/layout_in_memory.html#) docs for details
+>
+
+<u>**Question 37/40**</u>
 **Which of the following is most costly in terms of gas?**
 
-- [ ]  Reading msg.sender
-- [ ]  Reading immutable variables
-- [ ]  Reading storage variables
-- [ ]  Reading variables in memory
-- [ ]  Reading calldata
+1. Reading msg.sender 
+2. Reading immutable variables 
+3. Reading storage variables 
+4. Reading variables in memory 
+5. Reading calldata 
 
-**Question 38/40**
+> Doing some tests on Remix, I got the following values in the order of the proposed answers : (21471, 21443, 23609, 23290, 22737)
+The cost here is equal to the transaction cost (or base fee, equal to 21,000) + the execution cost
+The more expensive one is reading storage variable, followed by the variable in memory.
+If we check where are stored each of these variable :
+msg.sender : it is read using a unique opcode `CALLER` 
+immutable variables : they are stored in the bytecode of the contract (thus cannot be changed)
+storage variable : stored in the “storage” space, which is a modifiable persistent storage 
+memory variable : stored in “memory” space, which is a non-persistent storage
+calldata : non persistant storage used to pass arguments from caller to callee
+>
+
+<u>**Question 38/40**</u>
 
 **What is true about transferFrom and safeTransferFrom in ERC721?**
 
@@ -598,7 +619,7 @@ create2 can create multiple smart contracts.
 - [ ]  safeTransferFrom allows you to transfer multiple NFTs, but transferFrom only allows single transfers
 - [ ]  safeTransferFrom can be called by another smart contract, but transferFrom cannot be called by another smart
 
-**Question 39/40**
+<u>**Question 39/40**</u>
 **As of 2022, what is the maximum smart contract size?**
 
 - [ ]  Smart contracts do not have a size limit
@@ -609,7 +630,7 @@ create2 can create multiple smart contracts.
 - [ ]  12 kb
 - [ ]  20 kb
 
-**Question 40/40**
+<u>**Question 40/40**</u>
 
 **What happens if a program enters an infinite loop in Ethereum?**
 
