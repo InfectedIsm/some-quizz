@@ -18,7 +18,6 @@ If a user A sends a tx calling a smart contract B, msg.sender == tx.origin == us
 > 
 ___
 <u>**Question 6/40**</u>
-
 **Which of the following is true about generating random numbers on Ethereum? (multiple possible)**
 
 1. using block.timestamp is unreliable because the miner can manipulate it ([link](https://cryptomarketpool.com/block-timestamp-manipulation-attack/))
@@ -35,7 +34,6 @@ The length of the hash make the attack surface pretty small, so the attack will 
 >- Finally, the commit-reveal scheme can work to introduce randomness by forcing a player to commit a value and base the reveal value on the Nth following blockhash for example. Thus, it will be really difficult for an attacker to be sure to mine that block in order to manipulate this block hash
 ___
 <u>**Question 7/40**</u>
-
 **What is true about block.timestamp?**
 
 1. The number of milliseconds since 00:00:00 UTC 1 January 1970
@@ -45,7 +43,6 @@ ___
 5. The timestamp is determined by the miner or validator
 ___
 <u>**Question 8/40**</u>
-
 **EIP 1967 Proxy Storage Slots specifies which storage slots?**
 
 1. An implementation address
@@ -100,7 +97,6 @@ Note that this is what makes private variables not so much private : if the cont
 > 
 ___
 <u>**Question 11/40**</u>
-
 **What is the difference between a view and pure function in Solidity?**
 
 1. A pure function cannot have any side effects, but a view function can
@@ -116,7 +112,6 @@ For the list of what can change the state, please refer at [this section](https:
 > 
 ___
 <u>**Question 12/40**</u>
-
 **What is Ethereum's primary hash function?**
 
 1. sha2
@@ -160,7 +155,6 @@ function vote(uint256 choice) external payable {
 > 
 ___
 <u>**Question 14/40**</u>
-
 **What is true about ERC721?**
 
 1. _mint() is potentially re-entrant but _safeMint() is not
@@ -196,7 +190,6 @@ To win this game you must be a validator/miner, on each block you will compute `
 > 
 ___
 <u>**Question 16/40**</u>
-
 **What limits the block size in Ethereum as of 2022?**
 
 1. There cannot be more than 150 transactions per block
@@ -277,7 +270,6 @@ Finally, the deposit function is wrong, it equalize the balance to msg.value, wh
 > 
 ___
 <u>**Question 19/40**</u>
-
 **How can a smart contract change it's bytecode?**
 
 1. After the contract has already been constructed, and extcodesize is greater than zero, solidity can use extcodecopy to modify its own bytecode
@@ -291,7 +283,6 @@ ___
 > Same for `create` as it is based on msg.sender and its nonce
 ___
 <u>**Question 20/40**</u>
-
 **What is the difference between transfer and transferFrom in ERC20?**
 
 1. transferFrom can be used by an approved spender on behalf of another address
@@ -320,7 +311,6 @@ contract B is A {
 
 contract C is B{ }
 ```
-
 **Contract C is deployed. When boom() is called. Which of the following is true?**
 
 1. There are three contracts, B is destroyed, but A and C are not.
@@ -350,7 +340,6 @@ You can easily check that using Remix : when deploying a contract, if you develo
 > 
 ___
 <u>**Question 23/40**</u>
-
 **What solidity version introduced arithmetic underflow and overflow protection?**
 
 1. 0.7.6
@@ -376,7 +365,6 @@ Staticcall disallow any modification to the state during the call (and its subca
 > 
 ___
 <u>**Question 25/40**</u>
-
 **What does selfdestruct do?**
 
 1. sends all the ether in a contract to the address that initiated the self destruct
@@ -391,7 +379,6 @@ Also, be careful when using delegatecall, as you could call a malicious contract
 > 
 ___
 <u>**Question 26/40**</u>
-
 **Why does the gas cost of a public or external variable change when the name of the function changes?**
 
 1. The function selector may have more leading zeros
@@ -404,7 +391,6 @@ And, the execution of ‘0’ bytes by the EVM cost less gas than the execution 
 > 
 ___
 <u>**Question 27/40**</u>
-
 **Which of the following are valid uint sizes?**
 
 1. uint8
@@ -433,7 +419,6 @@ More information in the [Solidity documentation](https://docs.soliditylang.org/e
 > 
 ___
 <u>**Question 29/40**</u>
-
 **What is true about virtual functions?**
 
 1. It is used only in abstract contracts
@@ -489,7 +474,6 @@ function foo(uint256[] memory, uint256[] memory y) external view {
 
 ___
 <u>**Question 32/40**</u>
-
 **What is true about private, internal, external, and public functions?**
 
 1. Some of these of these are related to inheritance
@@ -511,7 +495,6 @@ ___
 > 
 ___
 <u>**Question 33/40**</u>
-
 **How is an ethereum address created?**
 
 1. An ethereum address is the hash of the public key
@@ -524,7 +507,6 @@ ___
 >
 ___
 <u>**Question 34/40**</u>
-
 **The DAO hack in 2016, that resulted in the split of Ethereum Classic, was hacked with what kind of exploit?**
 
 1. Compromised private keys
@@ -544,7 +526,6 @@ function {
 >
 ___
 <u>**Question 35/40**</u>
-
 **What is the difference between create and create2?**
 
 - [ ]  create is for creating one smart contract in a single transaction
@@ -604,32 +585,44 @@ calldata : non persistant storage used to pass arguments from caller to callee
 >
 ___
 <u>**Question 38/40**</u>
-
 **What is true about transferFrom and safeTransferFrom in ERC721?**
 
-- [ ]  transferFrom may be re-entrant, but safeTransferFrom is not re-entrant
-- [ ]  safeTransferFrom checks if the recipient is a smart contract
-- [ ]  transferFrom checks if the recipient is a smart contract
-- [ ]  safeTransferFrom allows you to transfer multiple NFTs, but transferFrom only allows single transfers
-- [ ]  safeTransferFrom can be called by another smart contract, but transferFrom cannot be called by another smart
+1. transferFrom may be re-entrant, but safeTransferFrom is not re-entrant
+2. **safeTransferFrom checks if the recipient is a smart contract**
+3. transferFrom checks if the recipient is a smart contract
+4. safeTransferFrom allows you to transfer multiple NFTs, but transferFrom only allows single transfers
+5. safeTransferFrom can be called by another smart contract, but transferFrom cannot be called by another smart
+
+> the safe from SafeTransferFrom isn’t about re-entrancy, but about verifying that a recipient contract is able to receive the NFT, to avoid losing it forever.
+This being said, this means that safeTransferFrom checks if the recipient is a smart contract ([see code comment](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol#L390-L391)), while transferFrom do not checks this.
+Also from the same link and reading the code, we see that it also checks that the recipient contract is aware of the ERC721 protocol.
+>
 ___
 <u>**Question 39/40**</u>
 **As of 2022, what is the maximum smart contract size?**
 
-- [ ]  Smart contracts do not have a size limit
-- [ ]  The maximum size of a smart contract is determined by the gas block limit
-- [ ]  Smart contracts do not have a size limit, but they become prohibitively expensive to deploy as they get large
-- [ ]  32 kb
-- [ ]  24 kb
-- [ ]  12 kb
-- [ ]  20 kb
+1. Smart contracts do not have a size limit
+2. The maximum size of a smart contract is determined by the gas block limit
+3. Smart contracts do not have a size limit, but they become prohibitively expensive to deploy as they get large
+4. 32 kb
+5. **24 kb**
+6. 12 kb
+7. 20 kb
+
+> Since EIP-170 introduced on November 22th, 2016, smart contract have a maximum size of 24kb. This limit was implemented to prevent DOS attacks as the effort for a client reading a contract bytecode is disproportionately related to its size, [more details here](https://ethereum.org/en/developers/tutorials/downsizing-contracts-to-fight-the-contract-size-limit/)
+Separating your contract into smaller interconnected contract not only allow you to go over this limitation, but help improving code organization, modularity and upgradability of the contract. 
+[EIP-2535 called Diamond Standard](https://eip2535diamonds.substack.com/p/introduction-to-the-diamond-standard) introduced a foundation to this kind of architecture
+>
 ___
 <u>**Question 40/40**</u>
-
 **What happens if a program enters an infinite loop in Ethereum?**
 
-- [ ]  The transaction will revert
-- [ ]  The ethereum client will warn the user and not allow them to initiate the transaction
-- [ ]  The transaction will update the state of the blockchain until it runs out of gas. It will preserve any changes before the gas ran out.
-- [ ]  The validator will reject the transaction after seeing it hasn't terminated past a certain time
-- [ ]  The compiler does not allow you to create programs with infinite loops
+1. **The transaction will revert**
+2. The ethereum client will warn the user and not allow them to initiate the transaction
+3. The transaction will update the state of the blockchain until it runs out of gas. It will preserve any changes before the gas ran out.
+4. The validator will reject the transaction after seeing it hasn't terminated past a certain time
+5. The compiler does not allow you to create programs with infinite loops
+
+> The reason why each line of code consume gas is exactly to protect against that kind of issue. 
+Because blocks are limited in gas, and because for each transaction a user must configure a gas limit, infinite loops cannot happens in Ethereum
+>
