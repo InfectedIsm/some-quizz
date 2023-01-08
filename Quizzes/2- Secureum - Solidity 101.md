@@ -1,37 +1,49 @@
 https://github.com/x676f64/secureum-mind_map/tree/master/quizzes
 
-#### Q1 Solidity language is
+# 02 - Solidity 101
 
-- [ ] A) Statically typed
+### Q1 Solidity language is
 
-- [ ] B) Object-oriented
+- [ ]  A) Statically typed
+- [ ]  B) Object-oriented
+- [ ]  C) Supports inheritance
+- [ ]  D) Supports inline assembly
 
-- [ ] C) Supports inheritance
+> All the above answer are true for Solidity.
+>- Statically typed means a developer must define for each variable a specific type (while langage like python or javascript define types on runtime)
+>- Object oriented and inheritance usually comes together, but inheritance isn’t required for a langage to be considered OO. In Solidity, contract can inherit from other contracts.
+Finally, Solidity support inline assembly using the assembly block `assembly {...}`. The assembly code is written in Yul.
+> 
 
-- [ ] D) Supports inline assembly
+---
 
+### Q2 Which of the following is/are correct?
 
-____
-#### Q2 Which of the following is/are correct?
+- [ ]  A) A Solidity file with pragma solidity ^0.6.5; can be compiled with compiler version 0.6.6
+- [ ]  B) A Solidity file with pragma solidity 0.6.5; can only be compiled with compiler version 0.6.5
+- [ ]  C) A Solidity file with pragma solidity ^0.6.5; can be compiled with compiler version 0.7.0
+- [ ]  D) A Solidity file with pragma solidity >0.6.5 <0.7.0; can be compiled with compiler version 0.7.0
 
-- [ ] A) A Solidity file with pragma solidity ^0.6.5; can be compiled with compiler version 0.6.6
+> pragma are used to restrict compilation to certain compiler version.
+>- If a version is written without ^ or <>, only this version is compatible.
+>- If its using ^X.Y.Z , it can be compiled for any version Z, for X and Y fixed.
+>- if using >M<N, version must be comprised between M (included) and N (not included). It is also possible to use >= and <=
+> 
 
-- [ ] B) A Solidity file with pragma solidity 0.6.5; can only be compiled with compiler version 0.6.5
+---
 
-- [ ] C) A Solidity file with pragma solidity ^0.6.5; can be compiled with compiler version 0.7.0
+### Q3 Which of the following is/are true?
 
-- [ ] D) A Solidity file with pragma solidity >0.6.5 <0.7.0; can be compiled with compiler version 0.7.0
+- [ ]  A) Constant state variables can be initialized within a constructor
+- [ ]  B) Immutable state variables are allocated a storage slot
+- [ ]  C) Gas costs for constant and immutable variables is lower
+- [ ]  D) Only value types can be immutable
 
-___
-#### Q3 Which of the following is/are true?
-
-- [ ] A) Constant state variables can be initialized within a constructor
-
-- [ ] B) Immutable state variables are allocated a storage slot
-
-- [ ] C) Gas costs for constant and immutable variables is lower
-
-- [ ] D) Only value types can be immutable
+> Constant state variable are set at compile time, and their value must be initialized when declared
+Immutable state variable **can** be declared uninitialized, but if its the case, they **must** be set within the constructor
+Immutable and constant variable have been introduced with version 0.6.5, and have the big advantage that reading to them is really cheap as they are not stored in storage but in bytecode. This means during compilation, every time this variable is read, the code will replace the read by its plain value.
+In fact, if a function only “reads” from a constant variable, it can be defined as pure. This is not the case for immutables ([read this](https://ethereum.stackexchange.com/questions/120612/why-are-functions-that-access-immutable-variables-not-pure))
+>
 
 ___
 #### Q4 Solidity functions
