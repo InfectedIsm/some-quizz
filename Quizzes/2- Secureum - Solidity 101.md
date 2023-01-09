@@ -46,63 +46,73 @@ In fact, if a function only “reads” from a constant variable, it can be defi
 >
 
 ___
-#### Q4 Solidity functions
+### Q4 Solidity functions
 
-- [ ] A) Can be declared only inside contracts
+- [ ]  A) Can be declared only inside contracts
+- [ ]  B) Can have named return variables
+- [ ]  C) Can have unnamed parameters
+- [ ]  D) Can be recursive
 
-- [ ] B) Can have named return variables
+> Function can also be declared inside a [Library](https://solidity-by-example.org/library/)
+It is possible to have named parameters, this allow us to return the named parameters automatically, without calling `return` at the end
+Its also possible have unnamed parameters, and it is possible to use inline assembly to get values out the calldata space
+Finally, it is possible to use recursivity inside a function
+> 
 
-- [ ] C) Can have unnamed parameters
+---
 
-- [ ] D) Can be recursive
+### Q5 Function visibility
 
-___
-#### Q5 Function visibility
+- [ ]  A) Goes from private-internal-external-public in decreasing restrictive order (i.e. private being the most restrictive)
+- [ ]  B) Goes from internal-private-external-public in decreasing restrictive order (i.e. internal being the most restrictive)
+- [ ]  C) May be omitted to default to internal in the latest 0.8.0+ compiler versions
+- [ ]  D) None of the above
 
-- [ ] A) Goes from private-internal-external-public in decreasing restrictive order (i.e. private being the most restrictive)
+> public - any contract and account can call 
+private - only inside the contract that defines the function 
+internal- only inside contract that inherits an internal function 
+external - only other contracts and accounts can call State variables can be declared as public, private, or internal but not external
+Visibility must be declared for function, while it can be omitted for variable, which will be defaulted to public
+> 
 
-- [ ] B) Goes from internal-private-external-public in decreasing restrictive order (i.e. internal being the most restrictive)
+---
 
-- [ ] C) May be omitted to default to internal in the latest 0.8.0+ compiler versions
+### Q6 Function foo() uses block.number. Which of the following is/are always true about foo()?
 
-- [ ] D) None of the above
+- [ ]  A) It should be marked as pure
+- [ ]  B) It should be marked as view
+- [ ]  C) It should be marked as payable
+- [ ]  D) Cannot determine mutability based only on this information
 
-___
-#### Q6 Function foo() uses block.number. Which of the following is/are always true about foo()?
+> block.number is a global state variable, reading this value makes it at least `view`, pure is not possible as it does not allow neither to write or read from state variable
+> 
 
-- [ ] A) It should be marked as pure
+---
 
-- [ ] B) It should be marked as view
+### Q7 Which of the following is/are true above events?
 
-- [ ] C) It should be marked as payable
+- [ ]  A) Events are meant for off-chain applications
+- [ ]  B) Events can be accessed only by the emitting contract
+- [ ]  C) Indexing event parameters creates searchable topics
+- [ ]  D) A maximum of three events can have indexed parameters
 
-- [ ] D) Cannot determine mutability based only on this information
+> Events have the role of informing services outside of the blockchain to let users know that something has happened.
+Events can have up to 3 `indexed` parameters, making them indexes to search through the event log
+> 
 
+---
 
-___
-#### Q7 Which of the following is/are true above events?
+### Q8 A contract can receive Ether via
 
-- [ ] A) Events are meant for off-chain applications
+- [ ]  A) msg.value to payable functions
+- [ ]  B) selfdestruct destination
+- [ ]  C) coinbase transaction
+- [ ]  D) receive() or fallback() functions
 
-- [ ] B) Events can be accessed only by the emitting contract
-
-- [ ] C) Indexing event parameters creates searchable topics
-
-- [ ] D) A maximum of three events can have indexed parameters
-
-
-___
-#### Q8 A contract can receive Ether via
-
-- [ ] A) msg.value to payable functions
-
-- [ ] B) selfdestruct destination
-
-- [ ] C) coinbase transaction
-
-- [ ] D) receive() or fallback() functions
-
-
+> If a function is declared as payable, it can receive ether. If it does not have payable functions, then it is still possible to send ether using their `receive()` or `fallback()` functions.
+If none of them are implemented, a contract can still receive ether by being the recipient of the `selfdestruct(address recipient)` function. This is in fact a possible [vulnerability](https://consensys.github.io/smart-contract-best-practices/development-recommendations/general/external-calls/#dont-delegatecall-to-untrusted-code) in a contract
+Finally, it can also receive ETH from a coinbase transaction
+>
 ___
 #### Q9 receive() and fallback() functions
 
