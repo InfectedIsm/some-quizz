@@ -111,33 +111,37 @@ Events can have up to 3 `indexed` parameters, making them indexes to search thro
 
 > If a function is declared as payable, it can receive ether. If it does not have payable functions, then it is still possible to send ether using their `receive()` or `fallback()` functions.
 If none of them are implemented, a contract can still receive ether by being the recipient of the `selfdestruct(address recipient)` function. This is in fact a possible [vulnerability](https://consensys.github.io/smart-contract-best-practices/development-recommendations/general/external-calls/#dont-delegatecall-to-untrusted-code) in a contract
-Finally, it can also receive ETH from a coinbase transaction
+[Since The Merge](https://ethereum.stackexchange.com/a/138595/105102), there’s no more things as coinbase transaction, but before The Merge a contract could receive ETH this way.
+> 
+
+---
+
+### Q9 receive() and fallback() functions
+
+- [ ]  A) Can rely only on 2300 gas in the worst case
+- [ ]  B) May receive Ether with payable mutability
+- [ ]  C) Are mandatory for all contracts
+- [ ]  D) Must have external visibility
+
+> `receive`and `fallback`functions when called using `transfer` or `send` will rely on 2300 gas. But if called using `call` will get forwarded all the remaining gas. The latter can be dangerous if not used with re-entrancy guards, as `fallback` and `receive` are a common source of re-entrancy.
+ `receive` must be payable as this function is called when ETH are sent without msg.data, but fallback do not need to be payable. 
+These functions must be external. As they are called by external contracts, this make no sense for them to be public/internal/private.
+A contract is valid even if none of these 2 functions are implemented.
+> 
+
+---
+
+### Q10 Which of the below are value types?
+
+- [ ]  A) Address
+- [ ]  B) Enum
+- [ ]  C) Struct
+- [ ]  D) Contract
+
+> There’s basically 2 big group of types in Solidity : Values and References.
+Because Arrays, Mappings and Struct stores multiple values, a reference (pointer) to their first element is more suitable to use if we want to access to only a portion of them.
+Contracts are a special type, each contract define its own type, and are part of the value types group
 >
-___
-#### Q9 receive() and fallback() functions
-
-- [ ] A) Can rely only on 2300 gas in the worst case
-
-- [ ] B) May receive Ether with payable mutability
-
-- [ ] C) Are mandatory for all contracts
-
-- [ ] D) Must have external visibility
-
-
-___
-#### Q10 Which of the below are value types?
-
-- [ ] A) Address
-
-- [ ] B) Enum
-
-- [ ] C) Struct
-
-- [ ] D) Contract
-
-
-
 ___
 #### Q11 The default value of
 
