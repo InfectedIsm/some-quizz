@@ -143,28 +143,30 @@ Because Arrays, Mappings and Struct stores multiple values, a reference (pointer
 Contracts are a special type, each contract define its own type, and are part of the value types group
 >
 ___
-#### Q11 The default value of
+### Q11 The default value of
 
-- [ ] A) Bool is false
+- [ ]  A) Bool is false
+- [ ]  B) Address is 0
+- [ ]  C) Statically-sized array depends on the underlying type
+- [ ]  D) Enum is its first member
 
-- [ ] B) Address is 0
+> The information can be found by testing in remix. Worth noting that the `delete var` operator assign the default value to `var`
+> 
 
-- [ ] C) Statically-sized array depends on the underlying type
+---
 
-- [ ] D) Enum is its first member
+### Q12 Address types
 
+- [ ]  A) Can always receive Ether
+- [ ]  B) Have members for balance, call, code
+- [ ]  C) Can be converted to uint160 or contract types
+- [ ]  D) Can be added and subtracted
 
-___
-#### Q12 Address types
-
-- [ ] A) Can always receive Ether
-
-- [ ] B) Have members for balance, call, code
-
-- [ ] C) Can be converted to uint160 or contract types
-
-- [ ] D) Can be added and subtracted
-
+> Address type can be declared as address [payable](https://docs.soliditylang.org/en/develop/types.html#members-of-addresses), which adds to it the send and transfer members. But `call`is accessible on non payable address, which makes it still possible to send Ether to it using `address.call{value:amount}("")`. But we must not forget that behind addresses, can be present either an EOA or a contract. While EOA can always receive Ether using `call`, this is not true for contract which needs to implement at least a `receive` function or a payable function.
+As an address is encoded on 20 bytes, it can explicitly be converted to `uint160` or `bytes20`.
+Also, an address can be converted to a contract, and a contract can be converted to an address ([link](https://docs.soliditylang.org/en/develop/types.html#contract-types))
+Finally, address are not compatible with arithmetic operators, you first need to convert the address to a uint
+>
 
 ___
 #### Q13 transfer and send primitives
