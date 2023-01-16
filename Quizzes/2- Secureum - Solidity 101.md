@@ -169,29 +169,29 @@ Finally, address are not compatible with arithmetic operators, you first need to
 >
 
 ___
-#### Q13 transfer and send primitives
+### Q13 transfer and send primitives
 
-- [ ] A) Are used for Ether transfers
+- [ ]  A) Are used for Ether transfers
+- [ ]  B) Trigger the receive() or fallback() functions of address
+- [ ]  C) Always return a value to be checked
+- [ ]  D) Provide only 2300 gas
 
-- [ ] B) Trigger the receive() or fallback() functions of address
+> Both functions are used to transfer Ether to a recipient. As these function do not target any methods in a contract, the contract needs to have [at least](https://solidity-by-example.org/sending-ether/) the `fallback()` function implemented, but it is a better practice to have both as they can handle 2 different cases.
+While transfer and send have the same gas behavior (provide only 2300 gas for re-entrancy protection), they return a different value : transfer throw error if there’s an issue, while send return a bool.
+> 
 
-- [ ] C) Always return a value to be checked
+---
 
-- [ ] D) Provide only 2300 gas
+### Q14 Which of the following is/are true for call/delegatecall/staticcall primitives?
 
+- [ ]  A) They are used to call contracts
+- [ ]  B) They only revert without returning success/failure
+- [ ]  C) Delegatecall retains the msg.sender and msg.value of caller contract
+- [ ]  D) Staticcall reverts if the called contract reads contract state of caller
 
-___
-#### Q14 Which of the following is/are true for call/delegatecall/staticcall primitives?
-
-- [ ] A) They are used to call contracts
-
-- [ ] B) They only revert without returning success/failure
-
-- [ ] C) Delegatecall retains the msg.sender and msg.value of caller contract
-
-- [ ] D) Staticcall reverts if the called contract reads contract state of caller
-
-
+> these three function are used by a contract to call either other’s contract function, or why not its own functions.
+These 3 functions have a different use that you can read [here](https://solidity-by-example.org/call/), [here](https://solidity-by-example.org/delegatecall/) and [here](https://medium.com/coinmonks/call-staticcall-and-delegatecall-1f0e1853340)
+>
 ___
 #### Q15 If we have an array then its data location can be
 
