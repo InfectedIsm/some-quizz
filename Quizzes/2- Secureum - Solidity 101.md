@@ -193,93 +193,106 @@ While transfer and send have the same gas behavior (provide only 2300 gas for re
 These 3 functions have a different use that you can read [here](https://solidity-by-example.org/call/), [here](https://solidity-by-example.org/delegatecall/) and [here](https://medium.com/coinmonks/call-staticcall-and-delegatecall-1f0e1853340)
 >
 ___
-#### Q15 If we have an array then its data location can be
+### Q15 If we have an array then its data location can be
 
-- [ ] A) memory and its persistence/scope will be the function of declaration
+- [ ]  A) memory and its persistence/scope will be the function of declaration
+- [ ]  B) storage and its persistence/scope will be the entire contract
+- [ ]  C) calldata and it will only be readable
+- [ ]  D) None of the above
 
-- [ ] B) storage and its persistence/scope will be the entire contract
+> Q10 talks about value types, in this question we are talking about reference types. When using one of these types, a location must be assigned to them. The three locations are listed here.
+More details on the [solidity doc](https://docs.soliditylang.org/en/v0.8.17/types.html#data-location-and-assignment-behaviour)
+> 
 
-- [ ] C) calldata and it will only be readable
+---
 
-- [ ] D) None of the above
+### Q16 The impact of data location of reference types on assignments is
 
+- [ ]  A) storage assigned to storage (local variable) makes a copy
+- [ ]  B) memory assigned to memory makes a copy
+- [ ]  C) memory assigned to storage creates a reference
+- [ ]  D) None of the above
 
+> If you follow the link in Q15 you will find the answer written. But basically, copy are made when assigning a data from a location to another. This is pretty logical as these are located in different space on the network
+> 
 
-___
-#### Q16 The impact of data location of reference types on assignments is
+---
 
-- [ ] A) storage assigned to storage (local variable) makes a copy
+### Q17 Which of the following is/are valid control structure(s) in Solidity (excluding YUL)?
 
-- [ ] B) memory assigned to memory makes a copy
+- [ ]  A) if
+- [ ]  B) else
+- [ ]  C) elif
+- [ ]  D) switch
 
-- [ ] C) memory assigned to storage creates a reference
+> elif and switch do not exists in solidity, but [else if](https://solidity-by-example.org/if-else/) works !
+> 
 
-- [ ] D) None of the above
+---
 
-___
-#### Q17 Which of the following is/are valid control structure(s) in Solidity (excluding YUL)?
+### Q18 The gas left in the current transaction can be obtained with
 
-- [ ] A) if
+- [ ]  A) tx.gas()
+- [ ]  B) gasleft()
+- [ ]  C) msg.gas()
+- [ ]  D) block.gaslimit()
 
-- [ ] B) else
+> `tx.gas()` do not exists, but `tx.gasprice` exists.
+`gasleft()` return the remaining gas, and has replaced `msg.gas` (without parenthesis) which is deprecated since `0.4.21`
+Finally, `block.gaslimit()` does not exists, this is not a function but a global variable, it should be called using `block.gaslimit`
+> 
 
-- [ ] C) elif
+---
 
-- [ ] D) switch
+### Q19 Which of the following is/are valid function specifier(s)?
 
-___
-#### Q18 The gas left in the current transaction can be obtained with
+- [ ]  A) internal
+- [ ]  B) pure
+- [ ]  C) payable
+- [ ]  D) immutable
 
-- [ ] A) tx.gas()
+> immutable is a specifier for variables only, as is constant
+> 
 
-- [ ] B) gasleft()
+---
 
-- [ ] C) msg.gas()
+### Q20 Integer overflows/underflows in Solidity
 
-- [ ] D) block.gaslimit()
+- [ ]  A) Are never possible because of the language design
+- [ ]  B) Are possible but prevented by compiler added checks (version dependent)
+- [ ]  C) Are possible but prevented by correctly using certain safe math libraries
+- [ ]  D) Are possible without any mitigation whatsoever
 
-___
-#### Q19 Which of the following is/are valid function specifier(s)?
+> `0.8.0` introduced [automatic overflow/underflow checks](https://docs.soliditylang.org/en/v0.8.17/080-breaking-changes.html). This introduce a slight increase in gas usage, but if you’re sure your value cannot overflow (could be in a for loop where i is known) you can use the `unchecked{...}` structure to use the previous behavior.
+Before `0.8.0` developers needed to use safe maths libararies like Open Zeppelin’s one.
+> 
 
-- [ ] A) internal
+---
 
-- [ ] B) pure
+### Q21 Arrays in Solidity
 
-- [ ] C) payable
+- [ ]  A) Can be fixed size or dynamic
+- [ ]  B) Are zero indexed
+- [ ]  C) Have push, pop and length members
+- [ ]  D) None of the above
 
-- [ ] D) immutable
+> Array in solidity can either be fixed size by declaring their number of elements `array[N]` or dynamic by not declaring it `array[]` 
+Their index starts at zero (you hear me Matlab ?), but push/pop/length are members of dynamic sized array only.
+> 
 
-___
-#### Q20 Integer overflows/underflows in Solidity
+---
 
-- [ ] A) Are never possible because of the language design
+### Q22 Structs in Solidity
 
-- [ ] B) Are possible but prevented by compiler added checks (version dependent)
+- [ ]  A) Are user-defined type
+- [ ]  B) Are reference types
+- [ ]  C) Can contain or be contained in arrays and mappings
+- [ ]  D) None of the above
 
-- [ ] C) Are possible but prevented by correctly using certain safe math libraries
-
-- [ ] D) Are possible without any mitigation whatsoever
-___
-#### Q21 Arrays in Solidity
-
-- [ ] A) Can be fixed size or dynamic
-
-- [ ] B) Are zero indexed
-
-- [ ] C) Have push, pop and length members
-
-- [ ] D) None of the above
-
-___
-#### Q22 Structs in Solidity
-
-- [ ] A) Are user-defined type
-
-- [ ] B) Are reference types
-
-- [ ] C) Can contain or be contained in arrays and mappings
-
-- [ ] D) None of the above
+> Structs are references types as are arrays, thus developers needs to assign them a location. 
+When declaring a struct `A`, this in fact create a new type `A`
+A struct can be composed of any other types (uint/strings/arrays/mappings/…), but not their own type.
+>
 
 
 ___
