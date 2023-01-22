@@ -296,41 +296,42 @@ A struct can be composed of any other types (uint/strings/arrays/mappings/…), 
 
 
 ___
-#### Q23 Which of the following is true about mapping types in mapping(_KeyType => _ValueType)?
+### Q23 Which of the following is true about mapping types in mapping(_KeyType => _ValueType)?
 
-- [ ] A) _KeyType can be any value or reference type
+- [ ]  A) _KeyType can be any value or reference type
+- [ ]  B) _ValueType can be any value or reference type
+- [ ]  C) Can only have storage (not memory) as data location
+- [ ]  D) Can be iterated over natively (i.e. without implementing another data structure)
 
-- [ ] B) _ValueType can be any value or reference type
+> This does not really make sense to have a “reference type” key, as the keys is a getter to get the value. [See doc here](https://docs.soliditylang.org/en/v0.8.17/types.html#mapping-types) for more details
+> 
 
-- [ ] C) Can only have storage (not memory) as data location
+---
 
-- [ ] D) Can be iterated over natively (i.e. without implementing another data structure)
+### Q24 if a = 1 then which of the following is/are true?
 
+- [ ]  A) a += 1 makes the value of a = 2
+- [ ]  B) b = ++a makes the value of b = 1
+- [ ]  C) a -= 1 makes the value of a = 1
+- [ ]  D) b = a-- makes the value of b = 1
 
-___
-#### Q24 if a = 1 then which of the following is/are true?
+> Everything is [explained here](https://docs.soliditylang.org/en/v0.8.17/types.html#compound-and-increment-decrement-operators) in solidity doc :
+`a += e` is equivalent to `a = a + e
+a++` and `a--` are equivalent to `a += 1` / `a -= 1` but the expression itself still has the previous value of `a`
+In contrast, `--a` and `++a` have the same effect on `a` but return the value after the change.
+> 
 
-- [ ] A) a += 1 makes the value of a = 2
+---
 
-- [ ] B) b = ++a makes the value of b = 1
+### Q25 delete varName; has which of the following effects?
 
-- [ ] C) a -= 1 makes the value of a = 1
+- [ ]  A) varName becomes 0 if varName is an integer
+- [ ]  B) varName becomes true if varName is a boolean
+- [ ]  C) No effect if varName is a mapping
+- [ ]  D) Resets all struct members to their default values irrespective of their types
 
-- [ ] D) b = a-- makes the value of b = 1
-
-
-___
-#### Q25 delete varName; has which of the following effects?
-
-- [ ] A) varName becomes 0 if varName is an integer
-
-- [ ] B) varName becomes true if varName is a boolean
-
-- [ ] C) No effect if varName is a mapping
-
-- [ ] D) Resets all struct members to their default values irrespective of their types
-
-
+> Seems like these questions are taken in the same order [as the documentation](https://docs.soliditylang.org/en/v0.8.17/types.html#delete) on types !
+>
 ___
 #### Q26 Conversions in Solidity have the following behavior
 
