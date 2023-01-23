@@ -331,83 +331,94 @@ In contrast, `--a` and `++a` have the same effect on `a` but return the va
 - [ ]  D) Resets all struct members to their default values irrespective of their types
 
 > Seems like these questions are taken in the same order [as the documentation](https://docs.soliditylang.org/en/v0.8.17/types.html#delete) on types !
+But in a nutshell, `delete` set variables to their default value, which does not works for mappings getting their nature. For structs, this works the same way as variables, in a sense that each element of the struct is set to its default value
+> 
+
+---
+
+### Q26 Conversions in Solidity have the following behavior
+
+- [ ]  A) Implicit conversions are never allowed
+- [ ]  B) Explicit conversion of uint16 to uint8 removes higher-order bits
+- [ ]  C) Explicit conversion of uint16 to uint32 adds lower-order padding
+- [ ]  D) Explicit conversions are checked by compiler for safety
+
+> Explicit conversion means casting a value to another one using `type(value)` , for example `uint16(x)`. This is allowed in most case but developers must do it carefully as this could lead to an unexpected result. 
+Implicit conversion is allowed but not always depending on the cases, when it can lead to unexpected results its usually disallowed, for example when converting `int` to `uint`
+> 
+
+---
+
+### Q27 If the previous block number was 1000 on Ethereum mainnet, which of the following is/are true?
+
+- [ ]  A) block.number is 1001
+- [ ]  B) blockhash(1) returns 0
+- [ ]  C) block.chainID returns 1
+- [ ]  D) block.timestamp returns the number of seconds since last block
+
+> All these values are called [globally available variables](https://docs.soliditylang.org/en/v0.8.17/units-and-global-variables.html) and are described in the linked documentation
+> 
+
+---
+
+### Q28 User from EOA A calls Contract C1 which makes an external call (CALL opcode) to Contract C2. Which of the following is/are true?
+
+- [ ]  A) tx.origin in C2 returns A’s address
+- [ ]  B) msg.sender in C2 returns A’s address
+- [ ]  C) msg.sender in C1 returns A’s address
+- [ ]  D) msg.value in C2 returns amount of Wei sent from A
+
+> 2 types of calls regarding execution context :
+- CALL : if A calls B, the call executes in A’s context
+- DELEGATECALL : if A calls B, the call executes in B’s context
+But tx.origin will always returns the EOA’s address
+> 
+
+---
+
+### Q29 For error handling
+
+- [ ]  A) require() is meant to be used for input validation
+- [ ]  B) require() has a mandatory error message string
+- [ ]  C) assert() is meant to be used to check invariants
+- [ ]  D) revert() will abort and revert state changes
+
+> `require()` , `assert()` and `revert()` are the 3 ways a [contract can revert](https://docs.soliditylang.org/en/v0.8.17/control-structures.html#assert-and-require). But they should be used differently. Since [version 0.8.4](https://blog.soliditylang.org/2021/04/21/custom-errors/) custom [errors](https://docs.soliditylang.org/en/v0.8.17/structure-of-a-contract.html#errors) can be used with the `revert` statement, and can be more gas efficient and dynamic than using strings
+> 
+
+---
+
+### Q30 The following is/are true about ecrecover primitive
+
+- [ ]  A) Takes a message hash and ECDSA signature values as inputs
+- [ ]  B) Recovers and returns the public key of the signature
+- [ ]  C) Is susceptible to malleable signatures
+- [ ]  D) None of the above
+
+> `ecrecover(bytes32 hash, uint8 v, bytes32 r, bytes32 s) returns (address)` return the Ethereum address associated with the public key. This function should be used with caution because of [signature malleability](https://medium.com/immunefi/intro-to-cryptography-and-signatures-in-ethereum-2025b6a4a33d)
+> 
+
+---
+
+### Q31 When Contract A attempts to make a delegatecall to Contract B but a prior transaction to Contract B has executed a selfdestruct
+
+- [ ]  A) The delegatecall reverts
+- [ ]  B) The delegatecall returns a failure
+- [ ]  C) The delegatecall returns a success
+- [ ]  D) This scenario is not practically possible
+
+> delegatecall returns 2 values : `(bool success, bytes data)` , the success will be true if the function execute without reverting [OR if the account has no code](https://www.evm.codes/#f1?fork=arrowGlacier) (EOA do not have code) 
+If a contract has selfdestructed, then its bytecode is deleted, which means it has no code, which returns true
+> 
+
+---
+
+### Q32 In Solidity, selfdestruct(address)
+
+- [ ]  A) Destroys the contract whose address is given as argument
+- [ ]  B) Destroys the contract executing the selfdestruct
+- [ ]  C) Sends address’s balance to the calling contract
+- [ ]  D) Sends executing contract’s balance to the address
+
+> `selfdestruct` delete the contract executing it, so be careful when using delegatecall, as [it would destroy the calling contract](https://ethereum.stackexchange.com/questions/86576/how-to-call-selfdestruct-if-not-written-in-contract-as-documentation-says-its)
 >
-___
-#### Q26 Conversions in Solidity have the following behavior
-
-- [ ] A) Implicit conversions are never allowed
-
-- [ ] B) Explicit conversion of uint16 to uint8 removes higher-order bits
-
-- [ ] C) Explicit conversion of uint16 to uint32 adds lower-order padding
-
-- [ ] D) Explicit conversions are checked by compiler for safety
-
-
-___
-#### Q27 If the previous block number was 1000 on Ethereum mainnet, which of the following is/are true?
-
-- [ ] A) block.number is 1001
-
-- [ ] B) blockhash(1) returns 0
-
-- [ ] C) block.chainID returns 1
-
-- [ ] D) block.timestamp returns the number of seconds since last block
-
-
-___
-#### Q28 User from EOA A calls Contract C1 which makes an external call (CALL opcode) to Contract C2. Which of the following is/are true?
-
-- [ ] A) tx.origin in C2 returns A’s address
-
-- [ ] B) msg.sender in C2 returns A’s address
-
-- [ ] C) msg.sender in C1 returns A’s address
-
-- [ ] D) msg.value in C2 returns amount of Wei sent from A
-
-___
-#### Q29 For error handling
-
-- [ ] A) require() is meant to be used for input validation
-
-- [ ] B) require() has a mandatory error message string
-
-- [ ] C) assert() is meant to be used to check invariants
-
-- [ ] D) revert() will abort and revert state changes
-
-___
-#### Q30 The following is/are true about ecrecover primitive
-
-- [ ] A) Takes a message hash and ECDSA signature values as inputs
-
-- [ ] B) Recovers and returns the public key of the signature
-
-- [ ] C) Is susceptible to malleable signatures
-
-- [ ] D) None of the above
-
-___
-#### Q31 When Contract A attempts to make a delegatecall to Contract B but a prior transaction to Contract B has executed a selfdestruct
-
-- [ ] A) The delegatecall reverts
-
-- [ ] B) The delegatecall returns a failure
-
-- [ ] C) The delegatecall returns a success
-
-- [ ] D) This scenario is not practically possible
-
-___
-#### Q32 In Solidity, selfdestruct(address)
-
-- [ ] A) Destroys the contract whose address is given as argument
-
-- [ ] B) Destroys the contract executing the selfdestruct
-
-- [ ] C) Sends address’s balance to the calling contract
-
-- [ ] D) Sends executing contract’s balance to the address
-
