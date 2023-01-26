@@ -36,6 +36,11 @@ B) Is organized in 256-byte slots
 C) Is packed for value types that use less than 32 bytes
 D) Always starts on a new slot for reference types
 
+> Everything is present in the first part of this [doc](https://docs.soliditylang.org/en/v0.8.17/internals/layout_in_storage.html)
+Details on why references types are stored in a new slot [here](https://docs.soliditylang.org/en/v0.8.17/internals/layout_in_storage.html#mappings-and-dynamic-arrays) 
+But to make it simple, as dynamic variables have unpredictable size, they cannot be stored in a packed way, the values they reference to are stored in a data location calculated using [the hash of the slot + other values], where the reference object is stored. If 2 different dynamic variables were stored in a same slot, there’s a possibility that [the hash of their slot + other values] are the same, thus implying the values they references to will overlap
+> 
+
 ---
 
 **Q4 For contract A {uint256 i; bool b1; bool b2; address a1;} the number of storage slots used is**
@@ -43,6 +48,14 @@ A) 4
 B) 3
 C) 2
 D) 1
+
+> Variables are packed in [32-bytes wide](https://docs.soliditylang.org/en/v0.8.17/internals/layout_in_storage.html) (or 256-bits) slots. This means `i` will take 1 slot for himself first. Adresses take 20-bytes, and for bool, well, I had to check by myself as I couldn’t find the answer, and seems they take 2-bytes as shown by these Remix screenshot I took (we see 2 storages slots, and we can see the values in there) :
+> 
+> 
+> ![Untitled](./images/3-Solidity_101_Q4_1.png)
+> 
+> ![Untitled](./images/3-Solidity_101_Q4_2.png)
+> 
 
 ---
 
@@ -52,6 +65,11 @@ B) The slots for struct elements are consecutive
 C) The slot s for dynamic array contains the length with individual elements stored consecutively in slots starting at keccak256(s)
 D) The slot s for mapping is empty with individual values stored consecutively in slots starting at keccak(h(k).s), where k is the first key and h is a hash function that depends on type of k
 
+> Slots are 32-bytes wide, and variables are packed following [this rule](https://docs.soliditylang.org/en/v0.8.17/internals/layout_in_storage.html), so state variable ordering is important to optimize storage size, thus gas usage when deploying the contract.
+Struct elements always starts a new slot, and their items are packed accordingly to the storage rules.
+Rules for dynamic arrays and mappings are [here](https://docs.soliditylang.org/en/v0.8.17/internals/layout_in_storage.html#mappings-and-dynamic-arrays)
+> 
+
 ---
 
 **Q6 EVM memory**
@@ -60,6 +78,20 @@ B) Is reserved by Solidity until 0x7f
 C) Can be accessed in bytes using MLOAD8/MSTORE8
 D) Is non-volatile or persistent
 
+> A linear memory model refers to a memory organized in a single contiguous address space, which is the case for EVM, where each elements are uint8 (its a byte array under the hood) Elements can be stored in 32 bytes or 1 byte chunks, but only read in 32 bytes chunks.
+> 
+> 
+> Solidity’s memory layout reserves four 32-byte slots:
+> 
+> 0x00 - 0x3f (64 bytes): scratch space
+> 
+> 0x40 - 0x5f (32 bytes): free memory pointer
+> 
+> 0x60 - 0x7f (32 bytes): zero slot
+> 
+> Memory is temporary place used during function calls and only persist during the call
+> 
+
 ---
 
 **Q7 EVM inline assembly has**
@@ -67,6 +99,12 @@ A) Its own language called Yul
 B) Safety checks just like Solidity
 C) Access to all variables in the contract and function where present
 D) References to variables as their addresses not values
+
+> When there’s need to optimize a portion of code, inline assembly must be used. Its language is called Yul, and must be written inside this block : `assembly { ... }` .
+This is a low level language close to the EVM opcodes, hence it should be use with caution as no safety guard are present.
+It is possible to access to any variable in the contract as described [in the doc](https://docs.soliditylang.org/en/v0.8.17/assembly.html)
+Depending on the type of the variable, the evaluated value can either be the variable value or its address
+>
 
 ---
 
