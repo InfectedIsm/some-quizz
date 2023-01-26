@@ -422,3 +422,4 @@ If a contract has selfdestructed, then its bytecode is deleted, which means it h
 
 > `selfdestruct` delete the contract executing it, so be careful when using delegatecall, as [it would destroy the calling contract](https://ethereum.stackexchange.com/questions/86576/how-to-call-selfdestruct-if-not-written-in-contract-as-documentation-says-its)
 >
+

@@ -1,192 +1,269 @@
-Q1 Which of the following is/are true about abstract contracts and interfaces?
- A) Abstract contracts have at least one function undefined
- B) Interfaces can have some functions defined
- C) Unimplemented functions in abstract contracts need to be declared virtual
- D) All functions are implicitly virtual in interfaces
- 
-Q2 Libraries are contracts
- A) That cannot have state variables
- B) That cannot be inherited
- C) That always require a delegatecall
- D) That are not meant to receive Ether
- 
-Q3 Storage layout
- A) Refers to the layout of state variables in storage
- B) Is organized in 256-byte slots
- C) Is packed for value types that use less than 32 bytes
- D) Always starts on a new slot for reference types
- 
-Q4 For contract A {uint256 i; bool b1; bool b2; address a1;} the number of storage slots used is
- A) 4
- B) 3
- C) 2
- D) 1
- 
-Q5 Which of the following is/are generally true about storage layouts?
- A) The number of slots used for a contract depends on the ordering of state variable declarations
- B) The slots for struct elements are consecutive
- C) The slot s for dynamic array contains the length with individual elements stored consecutively in slots starting at keccak256(s)
- D) The slot s for mapping is empty with individual values stored consecutively in slots starting at keccak(h(k).s), where k is the first key and h is a hash function that depends on type of k
- 
-Q6 EVM memory
- A) Is linear and byte-addressable
- B) Is reserved by Solidity until 0x7f
- C) Can be accessed in bytes using MLOAD8/MSTORE8
- D) Is non-volatile or persistent
- 
-Q7 EVM inline assembly has
- A) Its own language called Yul
- B) Safety checks just like Solidity
- C) Access to all variables in the contract and function where present
- D) References to variables as their addresses not values
- 
-Q8 Zero address check is typically recommended because
- A) The use of zero address for transfers will trigger an EVM exception
- B) Ether/tokens sent to zero address will be inaccessible
- C) Ether/tokens sent to zero address can be accessed by anyone
- D) Address 0 is the Ethereum Masternode account and is forbidden for access
- 
-Q9 ERC20 transferFrom(address sender, address recipient, uint256 amount) (that follows the ERC20 spec strictly)
- A) Transfers token amount from sender to recipient
- B) sender must have given caller (msg.sender) approval for at least amount or more
- C) Deducts amount from sender’s allowance
- D) Deducts amount from caller’s (msg.sender’s) allowance
- 
-Q10 OpenZeppelin SafeERC20 is generally considered safer to use than ERC20 because
- A) It adds integer overflow/underflow checks
- B) It adds return value/data checks
- C) It adds pause/unpause capability
- D) It adds race-condition checks
- 
-Q11 OpenZeppelin ERC20Pausable
- A) Adds ability to pause token transfers
- B) Adds ability to pause token minting and burning
- C) Provides modifiers whenPaused and whenNotPaused
- D) None of the above
- 
-Q12 OpenZeppelin ERC721
- A) Implements the NFT standard
- B) safeTransferFrom(..) checks for zero-addresses
- C) approve(..) is susceptible to race-condition just like ERC20
- D) setApprovalForAll(address operator, bool _approved) approves/removes operator for all of caller’s tokens
- 
-Q13 ERC777 may be considered as an improved version of ERC20 because
- A) Hooks allow reacting to token mint/burn/transfer
- B) It can help avoid separate approve and transferFrom transactions
- C) It can help prevent tokens getting stuck in contracts
- D) It removes reentrancy risk
- 
-Q14 The OpenZeppelin library that provides onlyOwner modifier
- A) Is Ownable
- B) Provides role based access control
- C) Provides a function to renounce ownership
- D) None of the above
- 
-Q15 OpenZeppelin’s (role-based) AccessControl library
- A) Provides support only for two specific roles: Owner and User
- B) Provides support for different roles with different authorization levels
- C) Provides support for granting and revoking roles
- D) None the above
- 
-Q16 If OpenZeppelin’s isContract(address) returns false for an address then
- A) Address is guaranteed to not be a contract
- B) Codesize at address is 0 at time of invocation
- C) Both A & B
- D) Neither A nor B
- 
-Q17 CREATE2
- A) Deploys two contracts proxy and implementation concurrently
- B) Deploys contract at an address that can be predetermined
- C) Uses a salt and contract creationCode
- D) None of the above
- 
-Q18 OpenZeppelin ECDSA
- A) Implements functions for signature creation & verification
- B) Is susceptible to signature malleability
- C) Both A & B
- D) Neither A nor B
- 
-Q19 OpenZeppelin SafeMath
- A) Prevents integer overflows/underflows at compile-time
- B) Is not required if using Solidity compiler version >= 0.8.0
- C) Both A & B
- D) Neither A nor B
- 
-Q20 OpenZeppelin’s proxy implementations
- A) Typically have a proxy contract and an implementation contract
- B) Use delegatecall's from proxy to implementation
- C) Cannot support upgradeable proxies
- D) None of the above
- 
-Q21 Proxied contracts
- A) Should use constructors in implementation contract to initialize the proxy’s state variables
- B) Should use an external/public initialize() function
- C) Should have their initialize() function called only once
- D) All of the above
- 
-Q22 Dappsys provides
- A) A proxy implementation
- B) A floating-point implementation with wad & ray
- C) A flexible authorization implementation
- D) All of the above
- 
-Q23 WETH is
- A) An ERC20 pre-compile for Wrapped Ether built into Ethereum protocol
- B) Warp Ether for super-fast Ether transfers
- C) Wrapped Ether to convert Ether into an ERC721 NFT
- D) None of the above
- 
-Q24 Name collision error with inheritance happens when the following pairs have the same name within a contract
- A) Function & modifier
- B) Function & event
- C) Function & function
- D) Event & modifier
- 
-Q25 Which of the following is/are not allowed?
- A) Function overriding
- B) Function overloading
- C) Modifier overloading
- D) Modifier overriding
- 
-Q26 Solidity supports
- A) Multiple inheritance
- B) Polymorphism
- C) Contract overloading
- D) Function overloading
- 
-Q27 Which of the following EVM instruction(s) do(es) not touch EVM storage?
- A) SLOAD
- B) MSTORE8
- C) SSTORE
- D) SWAP
- 
-Q28 Which of the following is/are true about Solidity compiler 0.8.0?
- A) ABI coder v2 is made the default
- B) No opt-out primitives for default checked arithmetic
- C) Failing assert returns the gas left instead of consuming all gas
- D) Exponentiation is made right associative
- 
-Q29 OpenZeppelin SafeCast
- A) Prevents underflows while downcasting
- B) Prevents overflows while downcasting
- C) Prevents underflows while upcasting
- D) Prevents overflows while upcasting
- 
-Q30 OpenZeppelin’s ReentrancyGuard library mitigates reentrancy risk in a contract
- A) For all its functions by simply deriving/inheriting from it
- B) Only for functions that apply the nonReentrant modifier
- C) By enforcing a checks-effects-interactions pattern in its functions
- D) None of the above
- 
-Q31 Assuming all contracts C1, C2 and C3 define explicit constructors in contract C1 is C2, C3 {…} and both C2 and C3 don’t inherit contracts, the number & order of constructor(s) executed is/are
- A) One, that of C1
- B) Three, in the order C2, C3, C1
- C) One, that of C3
- D) Three, in the order C1, C2, C3
- 
-Q32 Which of the following is/are true for a function f that has a modifier m?
- A) Function f cannot have another modifier because every function can have at most one modifier
- B) Function f's code is inlined at the point of _ within modifier m
- C) Function f reverts if _ is not executed in the modifier m
- D) None of the above
- 
+https://github.com/x676f64/secureum-mind_map/tree/master/quizzes
+
+# 03 -Solidity 201
+
+**Q1 Which of the following is/are true about abstract contracts and interfaces?**
+A) Abstract contracts have at least one function undefined
+B) Interfaces can have some functions defined
+C) Unimplemented functions in abstract contracts need to be declared virtual
+D) All functions are implicitly virtual in interfaces
+
+> If a contract has at least one `virtual` function it must be defined as `abstract`, which means an inheriting contract will have to implement this function. But a contract can be declared abstract and not having a virtual function.
+Interfaces are another type of contract, they can be seen as header files in C. Functions are not defined, but their prototype is, making it easier to interact with an already deployed contract. rather than using `call()`. For this, a deployed contract address can be casted using the interface, giving the developer access to the declared method in the interface. 
+Also good to not, functions in interfaces can be overriden (they are implicitly `virtual`)
+[Solidity doc reference](https://docs.soliditylang.org/en/v0.6.2/contracts.html#abstract-contracts)
+> 
+
+---
+
+**Q2 Libraries are contracts**
+A) That cannot have state variables
+B) That cannot be inherited
+C) That always require a delegatecall
+D) That are not meant to receive Ether
+
+> Libraries are meant to be used with `delegatecall` , because of the nature of this call (executing in the caller storage context), they shouldn’t and cannot (compiler error) have non constant state variables as this could lead to unexpected results in caller.
+This make the use of `constant` variable possible as they are hardcoded in bytecode, and same for `memory` variables.
+Libraries cannot be inherited, this is not what they are made for. But they can be imported, and then library functions can be called like you would call a function from a contract ( `Lib.func()`)
+Finally, library functions cannot be `payable`
+[Solidity doc reference](https://docs.soliditylang.org/en/v0.6.2/contracts.html#libraries)
+>
+---
+
+**Q3 Storage layout**
+A) Refers to the layout of state variables in storage
+B) Is organized in 256-byte slots
+C) Is packed for value types that use less than 32 bytes
+D) Always starts on a new slot for reference types
+
+---
+
+**Q4 For contract A {uint256 i; bool b1; bool b2; address a1;} the number of storage slots used is**
+A) 4
+B) 3
+C) 2
+D) 1
+
+---
+
+**Q5 Which of the following is/are generally true about storage layouts?**
+A) The number of slots used for a contract depends on the ordering of state variable declarations
+B) The slots for struct elements are consecutive
+C) The slot s for dynamic array contains the length with individual elements stored consecutively in slots starting at keccak256(s)
+D) The slot s for mapping is empty with individual values stored consecutively in slots starting at keccak(h(k).s), where k is the first key and h is a hash function that depends on type of k
+
+---
+
+**Q6 EVM memory**
+A) Is linear and byte-addressable
+B) Is reserved by Solidity until 0x7f
+C) Can be accessed in bytes using MLOAD8/MSTORE8
+D) Is non-volatile or persistent
+
+---
+
+**Q7 EVM inline assembly has**
+A) Its own language called Yul
+B) Safety checks just like Solidity
+C) Access to all variables in the contract and function where present
+D) References to variables as their addresses not values
+
+---
+
+**Q8 Zero address check is typically recommended because**
+A) The use of zero address for transfers will trigger an EVM exception
+B) Ether/tokens sent to zero address will be inaccessible
+C) Ether/tokens sent to zero address can be accessed by anyone
+D) Address 0 is the Ethereum Masternode account and is forbidden for access
+
+---
+
+**Q9 ERC20 transferFrom(address sender, address recipient, uint256 amount) (that follows the ERC20 spec strictly)**
+A) Transfers token amount from sender to recipient
+B) sender must have given caller (msg.sender) approval for at least amount or more
+C) Deducts amount from sender’s allowance
+D) Deducts amount from caller’s (msg.sender’s) allowance
+
+---
+
+**Q10 OpenZeppelin SafeERC20 is generally considered safer to use than ERC20 because**
+A) It adds integer overflow/underflow checks
+B) It adds return value/data checks
+C) It adds pause/unpause capability
+D) It adds race-condition checks
+
+---
+
+**Q11 OpenZeppelin ERC20Pausable**
+A) Adds ability to pause token transfers
+B) Adds ability to pause token minting and burning
+C) Provides modifiers whenPaused and whenNotPaused
+D) None of the above
+
+---
+
+**Q12 OpenZeppelin ERC721**
+A) Implements the NFT standard
+B) safeTransferFrom(..) checks for zero-addresses
+C) approve(..) is susceptible to race-condition just like ERC20
+D) setApprovalForAll(address operator, bool _approved) approves/removes operator for all of caller’s tokens
+
+---
+
+**Q13 ERC777 may be considered as an improved version of ERC20 because**
+A) Hooks allow reacting to token mint/burn/transfer
+B) It can help avoid separate approve and transferFrom transactions
+C) It can help prevent tokens getting stuck in contracts
+D) It removes reentrancy risk
+
+---
+
+**Q14 The OpenZeppelin library that provides onlyOwner modifier**
+A) Is Ownable
+B) Provides role based access control
+C) Provides a function to renounce ownership
+D) None of the above
+
+---
+
+**Q15 OpenZeppelin’s (role-based) AccessControl library**
+A) Provides support only for two specific roles: Owner and User
+B) Provides support for different roles with different authorization levels
+C) Provides support for granting and revoking roles
+D) None the above
+
+---
+
+**Q16 If OpenZeppelin’s isContract(address) returns false for an address then**
+A) Address is guaranteed to not be a contract
+B) Codesize at address is 0 at time of invocation
+C) Both A & B
+D) Neither A nor B
+
+---
+
+**Q17 CREATE2**
+A) Deploys two contracts proxy and implementation concurrently
+B) Deploys contract at an address that can be predetermined
+C) Uses a salt and contract creationCode
+D) None of the above
+
+---
+
+**Q18 OpenZeppelin ECDSA**
+A) Implements functions for signature creation & verification
+B) Is susceptible to signature malleability
+C) Both A & B
+D) Neither A nor B
+
+---
+
+**Q19 OpenZeppelin SafeMath**
+A) Prevents integer overflows/underflows at compile-time
+B) Is not required if using Solidity compiler version >= 0.8.0
+C) Both A & B
+D) Neither A nor B
+
+---
+
+**Q20 OpenZeppelin’s proxy implementations**
+A) Typically have a proxy contract and an implementation contract
+B) Use delegatecall's from proxy to implementation
+C) Cannot support upgradeable proxies
+D) None of the above
+
+---
+
+**Q21 Proxied contracts**
+A) Should use constructors in implementation contract to initialize the proxy’s state variables
+B) Should use an external/public initialize() function
+C) Should have their initialize() function called only once
+D) All of the above
+
+---
+
+**Q22 Dappsys provides**
+A) A proxy implementation
+B) A floating-point implementation with wad & ray
+C) A flexible authorization implementation
+D) All of the above
+
+---
+
+**Q23 WETH is**
+A) An ERC20 pre-compile for Wrapped Ether built into Ethereum protocol
+B) Warp Ether for super-fast Ether transfers
+C) Wrapped Ether to convert Ether into an ERC721 NFT
+D) None of the above
+
+---
+
+**Q24 Name collision error with inheritance happens when the following pairs have the same name within a contract**
+A) Function & modifier
+B) Function & event
+C) Function & function
+D) Event & modifier
+
+---
+
+**Q25 Which of the following is/are not allowed?**
+A) Function overriding
+B) Function overloading
+C) Modifier overloading
+D) Modifier overriding
+
+---
+
+**Q26 Solidity supports**
+A) Multiple inheritance
+B) Polymorphism
+C) Contract overloading
+D) Function overloading
+
+---
+
+**Q27 Which of the following EVM instruction(s) do(es) not touch EVM storage?**
+A) SLOAD
+B) MSTORE8
+C) SSTORE
+D) SWAP
+
+---
+
+**Q28 Which of the following is/are true about Solidity compiler 0.8.0?**
+A) ABI coder v2 is made the default
+B) No opt-out primitives for default checked arithmetic
+C) Failing assert returns the gas left instead of consuming all gas
+D) Exponentiation is made right associative
+
+---
+
+**Q29 OpenZeppelin SafeCast**
+A) Prevents underflows while downcasting
+B) Prevents overflows while downcasting
+C) Prevents underflows while upcasting
+D) Prevents overflows while upcasting
+
+---
+
+**Q30 OpenZeppelin’s ReentrancyGuard library mitigates reentrancy risk in a contract**
+A) For all its functions by simply deriving/inheriting from it
+B) Only for functions that apply the nonReentrant modifier
+C) By enforcing a checks-effects-interactions pattern in its functions
+D) None of the above
+
+---
+
+**Q31 Assuming all contracts C1, C2 and C3 define explicit constructors in contract C1 is C2, C3 {…} and both C2 and C3 don’t inherit contracts, the number & order of constructor(s) executed is/are**
+A) One, that of C1
+B) Three, in the order C2, C3, C1
+C) One, that of C3
+D) Three, in the order C1, C2, C3
+
+---
+
+**Q32 Which of the following is/are true for a function f that has a modifier m?**
+A) Function f cannot have another modifier because every function can have at most one modifier
+B) Function f's code is inlined at the point of _ within modifier m
+C) Function f reverts if _ is not executed in the modifier m
+D) None of the above
