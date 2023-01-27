@@ -134,7 +134,6 @@ Depending on the type of the variable, the evaluated value can either be the var
 > 
 
 ---
-
 **Q8 Zero address check is typically recommended because**
 
 A) The use of zero address for transfers will trigger an EVM exception
@@ -145,24 +144,45 @@ C) Ether/tokens sent to zero address can be accessed by anyone
 
 D) Address 0 is the Ethereum Masternode account and is forbidden for access
 
+> Address zero must be checked because because any tokens or ETH sent to that address will be lost. This is error could occur either because :
+>- a contract interacting with the tokens fails to correctly fill the parameter
+>- a user fails when typing the address in the UI
+>- a front app fails to correctly fill the parameter
+If anybody get the private key to that address, no question [he will be rich](https://etherscan.io/address/0x0000000000000000000000000000000000000000) ! (good luck though)
+> 
+
 ---
 
 **Q9 ERC20 transferFrom(address sender, address recipient, uint256 amount) (that follows the ERC20 spec strictly)**
 
 A) Transfers token amount from sender to recipient
+
 B) sender must have given caller (msg.sender) approval for at least amount or more
+
 C) Deducts amount from sender’s allowance
+
 D) Deducts amount from caller’s (msg.sender’s) allowance
+
+> transferFrom is called by a caller, to transfer tokens on behalf of sender, to the recipient. For this to be possible, sender must have approved the caller at least for the amount the caller wants to transfer. Once amount is transfered, the allowance of the caller in regard to the sender is reduced by the amount.
+> 
 
 ---
 
 **Q10 OpenZeppelin SafeERC20 is generally considered safer to use than ERC20 because**
 
 A) It adds integer overflow/underflow checks
+
 B) It adds return value/data checks
+
 C) It adds pause/unpause capability
+
 D) It adds race-condition checks
 
+> SafeERC20 is a wrapper around ERC20 functions (for example {SafeERC20.SafeTransfer} is wrapped around {ERC20.transfer}) and makes sure that :
+(1). the call reverts if the function return false
+(2). calls is successful for function no returning values (if not using SafeERC20 this could lead to a revert if not handled properly)
+[contract here](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/utils/SafeERC20.sol)
+>
 ---
 
 **Q11 OpenZeppelin ERC20Pausable**
