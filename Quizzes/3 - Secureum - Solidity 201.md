@@ -188,9 +188,15 @@ D) It adds race-condition checks
 **Q11 OpenZeppelin ERC20Pausable**
 
 A) Adds ability to pause token transfers
+
 B) Adds ability to pause token minting and burning
+
 C) Provides modifiers whenPaused and whenNotPaused
+
 D) None of the above
+
+> OpenZeppelin ERC20Pausable add some sort of security layer that allow authorized addresses (this can be the owner, or specific roles if conbined with [AccessControl](https://docs.openzeppelin.com/contracts/4.x/api/access#AccessControl) module) to pause and unpause any function of the contract, as far as these function have the `whenPause` and `whenNotPaused` modifier
+>
 
 ---
 
