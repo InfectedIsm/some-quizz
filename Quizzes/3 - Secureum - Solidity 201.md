@@ -208,6 +208,8 @@ D) setApprovalForAll(address operator, bool _approved) approves/removes operator
 
 > ERC721 is an implementation of [EIP-721](https://eips.ethereum.org/EIPS/eip-721), this EIP defines an interface that must be followed by a contract to be ERC721-compliant. Worth to note that to be ERC721-comp, the contract must also implement [ERC165 interface](https://eips.ethereum.org/EIPS/eip-165)
 `SafeTransferFrom` checks for zero-address as it calls `_transfer` where the this verification is done. If the recipient is a contract, it also checks if the contract is capable of receiving the NFT (to prevent it to be stuck forever) with the `_checkOnERC721Received` function. The recipient contract must implement the `[IERC721Receiver](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/IERC721Receiver.sol)`interface to be considered valid.
+`approve` is not susceptible to [race-condition](https://swcregistry.io/docs/SWC-114) as it only approve one tokenID
+`setApprovalForAll` should be used with caution as it allow the operator to control all caller’s token
 >
 ---
 
