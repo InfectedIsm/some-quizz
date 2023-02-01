@@ -220,6 +220,10 @@ B) It can help avoid separate approve and transferFrom transactions
 C) It can help prevent tokens getting stuck in contracts
 D) It removes reentrancy risk
 
+> ERC777 aim to improve ERC20 by adding (1) hooks : `tokenToSend` and `tokenReceived`, which are functions that are called by the ERC777 token when received by a contract which can enable multiple functionality, as atomic purchase (the contract can react to the transfer and directly use the token), rejecting some tokens (by reverting the call), redirecting the token, …
+An ERC777 token can chose to revert if the recipient address cannot receive properly the token, which prevent from them being stuck forever
+> 
+
 ---
 
 **Q14 The OpenZeppelin library that provides onlyOwner modifier**
@@ -228,6 +232,9 @@ A) Is Ownable
 B) Provides role based access control
 C) Provides a function to renounce ownership
 D) None of the above
+
+> Inheriting from Ownable.sol will add to the contract a private variable `_owner` and functions operate it (set and renounce), plus an `onlyOwner` modifier.
+> 
 
 ---
 
@@ -238,6 +245,9 @@ B) Provides support for different roles with different authorization levels
 C) Provides support for granting and revoking roles
 D) None the above
 
+> AccessControl only add 2 specifics roles which are described in this question. The owner has the ability to grant or revoke these roles. If you need more roles, you should use AccessControlEnumerable
+> 
+
 ---
 
 **Q16 If OpenZeppelin’s isContract(address) returns false for an address then**
@@ -246,6 +256,9 @@ A) Address is guaranteed to not be a contract
 B) Codesize at address is 0 at time of invocation
 C) Both A & B
 D) Neither A nor B
+
+> `isContract` function is part of the OZ Address library and checks code size equal 0 using `address.code.length` to know if its an EOA or a contract, as an EOA do not have code. But there’s cases where this variable is 0. For example during contract construction, or if the contract has been selfdestructed
+> 
 
 ---
 
@@ -256,6 +269,9 @@ B) Deploys contract at an address that can be predetermined
 C) Uses a salt and contract creationCode
 D) None of the above
 
+> `create2` has been added after `create` to give the ability to developer to predetermine the resulting address. With `create` the calculation of the address uses the nonce and msg.sender, which makes it unpredictable. While `create2` uses a salt and the contract creation code. This means that for an exact same code, salt and msg.sender, the resulting address will always be the same (using contract creation code prevent a malicious developper to destroy its contract and replace it by a dangerous one without the users noticing it !)
+> 
+
 ---
 
 **Q18 OpenZeppelin ECDSA**
@@ -264,6 +280,9 @@ A) Implements functions for signature creation & verification
 B) Is susceptible to signature malleability
 C) Both A & B
 D) Neither A nor B
+
+> OpenZeppelin ECDSA provides functions for recovering and managing Ethereum account ECDSA signature + solves the issue of [signature malleability](https://twitter.com/0xOwenThurm/status/1619151598877577216) (to make it really quick, it exists two different couple of values that would verify a same signature, ECDSA forces one of theses values to be fixed, making this trick impossible)
+>
 
 ---
 
