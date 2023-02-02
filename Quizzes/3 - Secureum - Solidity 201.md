@@ -222,7 +222,7 @@ D) It removes reentrancy risk
 
 > ERC777 aim to improve ERC20 by adding (1) hooks : `tokenToSend` and `tokenReceived`, which are functions that are called by the ERC777 token when received by a contract which can enable multiple functionality, as atomic purchase (the contract can react to the transfer and directly use the token), rejecting some tokens (by reverting the call), redirecting the token, …
 An ERC777 token can chose to revert if the recipient address cannot receive properly the token, which prevent from them being stuck forever
-> 
+> But this should trigger in your mind that hooks bring with them reentrancy, so be careful and don’t forget to implement reentrancy guards !
 
 ---
 
@@ -293,6 +293,9 @@ B) Is not required if using Solidity compiler version >= 0.8.0
 C) Both A & B
 D) Neither A nor B
 
+> SafeMath is not needed anymore with version ≥0.8.0 of Solidity. Although, I found [that answer on StackExchange](https://ethereum.stackexchange.com/a/115534/105102) pretty interesting, showing it can still be useful for meaningful revert messages.
+> 
+
 ---
 
 **Q20 OpenZeppelin’s proxy implementations**
@@ -301,6 +304,9 @@ A) Typically have a proxy contract and an implementation contract
 B) Use delegatecall's from proxy to implementation
 C) Cannot support upgradeable proxies
 D) None of the above
+
+> We use a proxy architecture to make contracts “upgradable”. By separating the logic (implementation contract) and the proxy (delegating calls to the implementation contract), we can then change whenever needed the address of the logic contract called by the proxy ! There’s multiple proxies architecture, one of them is the TransparentUpgradableProxy which make it possible for an admin to upgrade the proxy from the implementation
+> 
 
 ---
 
@@ -311,6 +317,9 @@ B) Should use an external/public initialize() function
 C) Should have their initialize() function called only once
 D) All of the above
 
+> Proxied contract shouldn’t use constructors, the reason behind that is  explained in [Open Zeppelin Upgrades Plugins doc](https://docs.openzeppelin.com/upgrades-plugins/1.x/proxies#the-constructor-caveat), as this is already perfectly phrased, I’m copying it here : *“In Solidity, code that is inside a constructor or part of a global variable declaration is not part of a deployed contract’s runtime bytecode. This code is executed only once, when the contract instance is deployed. As a consequence of this, the code within a logic contract’s constructor will never be executed in the context of the proxy’s state. To rephrase, proxies are completely oblivious to the existence of constructors. It’s simply as if they weren’t there for the proxy.”*
+> 
+
 ---
 
 **Q22 Dappsys provides**
@@ -320,14 +329,20 @@ B) A floating-point implementation with wad & ray
 C) A flexible authorization implementation
 D) All of the above
 
+> All of the above, you can find their documentation here if interested : [https://dappsys.readthedocs.io/en/latest/](https://dappsys.readthedocs.io/en/latest/)
+> 
+
 ---
 
 **Q23 WETH is**
 
 A) An ERC20 pre-compile for Wrapped Ether built into Ethereum protocol
-B) Warp Ether for super-fast Ether transfers
+B) Wrap Ether for super-fast Ether transfers
 C) Wrapped Ether to convert Ether into an ERC721 NFT
 D) None of the above
+
+> WETH has been deployed to wrap ETH into an ERC20, because ETH isn’t an ERC20 at first, but the the native crypto of the Ethereum network, thus giving him different properties in regard to ERC20 tokens. By wrapping ETH into WETH, this make it way more easy and straightforward to use it in DeFi protocols
+>
 
 ---
 
