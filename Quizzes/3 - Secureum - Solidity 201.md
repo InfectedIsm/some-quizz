@@ -353,6 +353,9 @@ B) Function & event
 C) Function & function
 D) Event & modifier
 
+> Answer of the quizz says A,B and D, but from this is a but tricky. Let’s say contract B inherits from contract A, and they have a same function name. While it is not possible to have a function with a [same signature](https://ethereum.stackexchange.com/questions/135205/what-is-a-function-signature-and-function-selector-in-solidity-and-evm-language), it is still possible to have 2 functions with same name, but different input parameters (which change its signature)
+> 
+
 ---
 
 **Q25 Which of the following is/are not allowed?**
@@ -361,6 +364,9 @@ A) Function overriding
 B) Function overloading
 C) Modifier overloading
 D) Modifier overriding
+
+> Overriding occurs when a contract inherit a `virtual` function/modifier from another contract and `override` it. Overloading means having a function with a same name, but different input/output parameters. This works for functions, but not for modifiers. Seems like this question [is still discussed](https://github.com/ethereum/solidity/issues/72) on the solidity github
+> 
 
 ---
 
@@ -371,6 +377,11 @@ B) Polymorphism
 C) Contract overloading
 D) Function overloading
 
+> It is possible for a contract to inherit from multiple contracts, as far there is no collision (as described in Q24) 
+Polymorphism is linked to overriding, if a child contract has a function with same name as an ancestor, calling it will call its own function, and not the ancestors’ ones. It is still possible to call the function higher in the hierarchy using `super.functionName()` or `contractName.functionName()`.
+Contract overloading do not exists, and I’m not sure what this would be.
+> 
+
 ---
 
 **Q27 Which of the following EVM instruction(s) do(es) not touch EVM storage?**
@@ -379,6 +390,9 @@ A) SLOAD
 B) MSTORE8
 C) SSTORE
 D) SWAP
+
+> SLOAD and SSTORE starts with an S for Storage. MSTORE8 starts with an M for Memory. SWAP starts with an S, but this is the whole word “swap” which swap 2 items from the stack. You can find [all opcodes here](https://www.evm.codes/?fork=arrowGlacier)
+> 
 
 ---
 
@@ -389,6 +403,13 @@ B) No opt-out primitives for default checked arithmetic
 C) Failing assert returns the gas left instead of consuming all gas
 D) Exponentiation is made right associative
 
+> Before `0.8.0`, we had to use the `pragma experimental ABIEncoderV2` instruction to use this encoder which was still experimental. V2 make it possible to return structs, nested and dynamic variables from function and emitted by events
+Also, arithmetic operations are by default checked.
+Finally, before this version exponentiation was left associative, which was not common compared to other programming langage. Right associative means `a**b**c`
+ is parsed as `a**(b**c)`
+List of changes [here](https://docs.soliditylang.org/en/v0.8.0/080-breaking-changes.html)
+> 
+
 ---
 
 **Q29 OpenZeppelin SafeCast**
@@ -397,6 +418,9 @@ A) Prevents underflows while downcasting
 B) Prevents overflows while downcasting
 C) Prevents underflows while upcasting
 D) Prevents overflows while upcasting
+
+> When downcasting a `uint32 a = 0x12345678` to a `uint16 b = uint16(a)` b will be equal to `0x5678` which act as an overflow. This is call [explicit conversion](https://docs.soliditylang.org/en/v0.8.18/types.html#explicit-conversions). SafeCast reverts if there’s an overflow
+> 
 
 ---
 
@@ -407,14 +431,23 @@ B) Only for functions that apply the nonReentrant modifier
 C) By enforcing a checks-effects-interactions pattern in its functions
 D) None of the above
 
+> OZ [ReentrancyGuard](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/security/ReentrancyGuard.sol) add a nonReentrant modifier, which sets a flag when entering the function, and unset it when exiting the function, while requiring that the flag is always unset when entering the function. This way, no re-entrancy is possible in function using that modifier. 
+Still, developer should implement the check-effects-interactions pattern as a good habit.
+> 
+
 ---
 
-**Q31 Assuming all contracts C1, C2 and C3 define explicit constructors in contract C1 is C2, C3 {…} and both C2 and C3 don’t inherit contracts, the number & order of constructor(s) executed is/are**
+**Q31 Assuming all contracts C1, C2 and C3 define explicit constructors and contract C1 is C2, C3 {…} and both C2 and C3 don’t inherit contracts, the number & order of constructor(s) executed is/are**
 
 A) One, that of C1
 B) Three, in the order C2, C3, C1
 C) One, that of C3
 D) Three, in the order C1, C2, C3
+
+> Languages that allow multiple inheritance have to deal with several problems. One is the [Diamond Problem](https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem). Solidity is similar to Python in that it uses “[C3 Linearization](https://en.wikipedia.org/wiki/C3_linearization)
+” to force a specific order. 
+This is explained in [Solidity doc](https://docs.soliditylang.org/en/v0.8.18/contracts.html#multiple-inheritance-and-linearization).
+> 
 
 ---
 
@@ -424,3 +457,6 @@ A) Function f cannot have another modifier because every function can have at mo
 B) Function f's code is inlined at the point of _ within modifier m
 C) Function f reverts if _ is not executed in the modifier m
 D) None of the above
+
+> It is possible to have multiple modifiers for a function, the rule it follow is well described in [this discussion](https://ethereum.stackexchange.com/questions/29608/whats-the-order-of-execution-for-multiple-function-modifiers). Modifiers uses the `_;` statement, which acts as a placeholder for the code calling the modifier
+>
