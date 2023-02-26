@@ -58,6 +58,11 @@ ___
 - [ ] C) ERC721
 - [ ] D) None of the above
 
+> This token does not implement any of the above standards. It is a custom token contract as none of these standard have a `buy()` function in the first place.
+> The best way to implement a token/NFT contract is to use one of the existing and extensively tested implementation like OpenZeppelin's one.
+> ERC777 is a token standard based on ERC20, but adding some advanced features like hooks and operators, but its getting deprecated becase of the complexity and vulnerabilities it adds.
+> ERC721 is the standard for NFTs.
+
 <details>
 	<summary>Click the reveal the answer</summary>
 D
@@ -70,6 +75,8 @@ ___
 - [ ] C) A way to withdraw/exchange/use Ether from the contract
 - [ ] D) None of the above
 
+> It happens sometimes that users sends ether to the token contract by mistake, thinking this will allow them to buy tokens. This is not the case, and the ether will be locked forever in the contract. In this example, the only way to buy tokens is to use the `buy()` function.
+> To solve this issue, the contract should implement a way to withdraw Ether from the contract and send them to the poor user who sent them by mistake. 
 <details>
 	<summary>Click the reveal the answer</summary>
 C
@@ -81,6 +88,10 @@ ___
 - [ ] B) balances must be private
 - [ ] C) `transfer()` can be external
 - [ ] D) `safeAdd()` can be public
+
+> - The `buy()` function needs to be payable because it will receive Ether from the user.
+> - There's no need to make `balances` private, and it is actually better to make it public so that users can check their balance (but this would save gas if it was private as a private variable has no getter function generated)
+> - `transfer()` can be external as it does not need to be called by the contract itself, this would save gas as public visibility generally costs more gas because arguments in public functions are copied to `memory`, while functions with external visibility can read arguments directly from `calldata`
 
 <details>
 	<summary>Click the reveal the answer</summary>
@@ -94,6 +105,9 @@ ___
 - [ ] C) 100
 - [ ] D) None of the above
 
+> If the contract was developped correctly, the total supply should be limited to 100 tokens. But we see that the buy function never check that the total supply is not greater than MAX_SUPPLY.
+> 1 ether in solidity is 10\**18 wei, so 100 ether is 100 * 10\**18
+
 <details>
 	<summary>Click the reveal the answer</summary>
 D
@@ -105,6 +119,9 @@ ___
 - [ ] B) Unsafe rounding allows one to receive new tokens for free
 - [ ] C) A division by zero allows one to trap/freeze the system
 - [ ] D) None of the above
+
+> No underflow are possible as the require statement checks that the balance is greater than the amount to transfer. This means balance_from - amount will always be greater than 0.
+> Unsafe rounding is present, this is because of the integer nature of solidity numbers. When a division is performed, the result is rounded to the floor. To avoid this, the [division should be done after the multiplication](https://soliditydeveloper.com/solidity-design-patterns-multiply-before-dividing).
 
 <details>
 	<summary>Click the reveal the answer</summary>
@@ -118,6 +135,17 @@ ___
 - [ ] C) Incorrect balance update allows one to receive new tokens for free
 - [ ] D) None of the above
 
+> There is no front-running risk here as the price is fixed and cannot be manimpulated.
+> There's clearly no function that would need access control here.
+> From the previous question about the rounding, we know that the price is not correctly calculated. Here an example to understand the issue:
+> - let's say we want to calculate `received = desired_tokens / 10 * decimals`
+> - if `desired_tokens = 1009` and `decimals = 5` we will have `floor(1009 / 10) * 5 = 100 * 5 = 500`
+> - if we multiply first we will have `floor((1009 * 5)/10) = 504`
+> This means the wei to send (in the first case) is less that the value of the tokens that will be added. This is a bug that can be fixed by doing the division after the multiplication.
+> But worse than that, there's no protection against overflow when required_wei_sent is calculated, which can result in a massive theft.
+
+
+
 <details>
 	<summary>Click the reveal the answer</summary>
 C
@@ -130,6 +158,8 @@ ___
 - [ ] C) A reentrancy allows one to receive new tokens for free
 - [ ] D) None of the above
 
+> reentrancy occurs when there's an external call, or ether sent to a contract. In this case, there's no external call, and no ether sent to the contract, so there's no reentrancy risk.
+
 <details>
 	<summary>Click the reveal the answer</summary>
 D
@@ -141,6 +171,8 @@ ___
 - [ ] B) An integer overflow allows one to receive new tokens for free
 - [ ] C) An integer overflow allows one to trap/freeze the system
 - [ ] D) None of the above
+
+> The solidity version is 0.7.0, meaning overflow/underflow can occur. In this case, it can occur at require_wei_sent in the `buy()` function. If desired_tokens is chosen carrefully, result can be very low because of the overflow, meaning the attacker will be allowed to send a very low msg.value, but see its balance granted to the desired_tokens amount.    
 
 <details>
 	<summary>Click the reveal the answer</summary>
